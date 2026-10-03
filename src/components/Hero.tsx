@@ -54,33 +54,33 @@ export default function Hero() {
         <p className="tagline">{resumeData.personal.tagline[lang]}</p>
 
         {/* Name and Title with Profile Photo */}
-        <div className="flex flex-col-reverse sm:flex-row sm:items-center sm:justify-between gap-6 mb-6">
-          <div className="space-y-4">
-            <h1 className="font-heading text-4xl sm:text-5xl md:text-6xl font-bold tracking-tight text-foreground text-balance">
+        <div className="flex flex-row items-center justify-between gap-4 sm:gap-6 mb-6">
+          <div className="space-y-2 sm:space-y-4">
+            <h1 className="font-heading text-3xl sm:text-5xl md:text-6xl font-bold tracking-tight text-foreground text-balance">
               {resumeData.personal.name}
             </h1>
-            <p className="text-xl sm:text-2xl font-medium text-primary flex items-center gap-2 flex-wrap">
-              <span className="bg-primary/10 text-primary px-3 py-1 rounded-xl text-base sm:text-lg border border-primary/20">
+            <p className="text-base sm:text-2xl font-medium text-primary flex items-center gap-2 flex-wrap">
+              <span className="bg-primary/10 text-primary px-2.5 py-0.5 sm:px-3 sm:py-1 rounded-xl text-xs sm:text-lg border border-primary/20">
                 {resumeData.personal.title[lang]}
               </span>
               <span className="text-muted-foreground text-base sm:text-lg hidden sm:inline">
                 •
               </span>
-              <span className="text-muted-foreground text-sm sm:text-base hidden sm:inline">
+              <span className="text-muted-foreground text-xs sm:text-base hidden sm:inline">
                 {resumeData.personal.subTitle[lang]}
               </span>
             </p>
           </div>
 
           {/* Profile Photo from Instagram */}
-          <div className="relative shrink-0 group self-start sm:self-center">
-            <div className="size-24 sm:size-32 rounded-3xl p-1 bg-gradient-to-br from-primary/50 via-primary/20 to-border ring-2 ring-primary/30 shadow-lg overflow-hidden group-hover:scale-105 group-hover:ring-primary transition-all duration-300 bg-card">
+          <div className="relative shrink-0 group">
+            <div className="size-20 sm:size-32 rounded-2xl sm:rounded-3xl p-1 bg-gradient-to-br from-primary/50 via-primary/20 to-border ring-2 ring-primary/30 shadow-lg overflow-hidden group-hover:scale-105 group-hover:ring-primary transition-all duration-300 bg-card">
               <Image
                 src="/profile.jpg"
                 alt={resumeData.personal.name}
                 width={128}
                 height={128}
-                className="w-full h-full object-cover rounded-[20px]"
+                className="w-full h-full object-cover rounded-[14px] sm:rounded-[20px]"
                 priority
               />
             </div>
@@ -88,10 +88,10 @@ export default function Hero() {
               href={resumeData.personal.instagramUrl}
               target="_blank"
               rel="noopener noreferrer"
-              className="absolute -bottom-2 -right-2 px-2.5 py-1 rounded-full bg-card border border-border shadow-md text-[10px] font-mono font-medium text-foreground hover:text-primary flex items-center gap-1 transition-colors"
+              className="absolute -bottom-2 -right-1 sm:-right-2 px-2 py-0.5 sm:px-2.5 sm:py-1 rounded-full bg-card border border-border shadow-md text-[9px] sm:text-[10px] font-mono font-medium text-foreground hover:text-primary flex items-center gap-1 transition-colors"
               title="Instagram @dennyachaii"
             >
-              <InstagramIcon className="size-3 text-pink-500" />
+              <InstagramIcon className="size-2.5 sm:size-3 text-pink-500" />
               <span>@dennyachaii</span>
             </a>
           </div>

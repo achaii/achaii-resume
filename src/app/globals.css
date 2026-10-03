@@ -118,6 +118,11 @@ h1, h2, h3, h4, .font-heading {
   text-decoration: none;
 }
 
+.btn-3d.hidden,
+.btn-3d[hidden] {
+  display: none !important;
+}
+
 .btn-3d:active {
   transform: translateY(1px);
 }
