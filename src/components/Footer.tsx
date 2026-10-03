@@ -31,7 +31,8 @@ export default function Footer() {
                 {resumeData.personal.name}
               </span>
               <span className="text-xs text-muted-foreground font-mono">
-                {resumeData.personal.title[lang]} — {resumeData.personal.subTitle[lang]}
+                {resumeData.personal.title[lang]}
+                {resumeData.personal.subTitle[lang] ? ` — ${resumeData.personal.subTitle[lang]}` : ""}
               </span>
             </div>
           </div>

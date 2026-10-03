@@ -38,12 +38,12 @@ export const resumeData = {
   personal: {
     name: "Deni Hidayat",
     title: {
-      en: "Principal Software Engineer & AI Engineer",
-      id: "Principal Software Engineer & AI Engineer",
+      en: "Principal Software Engineer",
+      id: "Principal Software Engineer",
     },
     subTitle: {
-      en: "Enterprise Systems Architect • AI Engineering • Independent Practice",
-      id: "Arsitek Sistem Enterprise • AI Engineering • Independent Practice",
+      en: "",
+      id: "",
     },
     bio: {
       en: "Results-driven Principal Software Engineer & AI Engineer with over 7 years of hands-on experience architecting and delivering enterprise web applications, government information systems, banking IT solutions, and intelligent AI-powered architectures. Deep technical expertise in the Laravel ecosystem, modern JavaScript (React, Vue, Alpine), RESTful APIs, relational & cloud databases, alongside cutting-edge AI Engineering (Large Language Model / LLM integration, autonomous AI agents, prompt engineering, RAG pipelines, and intelligent automated workflows).",
@@ -129,8 +129,8 @@ export const resumeData = {
       id: "independent-practice",
       company: "Independent Practice",
       role: {
-        en: "Principal Software Engineer & AI Engineer",
-        id: "Principal Software Engineer & AI Engineer",
+        en: "Principal Software Engineer",
+        id: "Principal Software Engineer",
       },
       period: {
         en: "01/2019 – Present",

@@ -150,7 +150,7 @@ export default function Navbar() {
               {resumeData.personal.name}
             </span>
             <span className="text-[9px] sm:text-[10px] text-muted-foreground uppercase tracking-wider font-mono whitespace-nowrap hidden sm:block">
-              Principal Software & AI Engineer
+              Principal Software Engineer
             </span>
           </div>
         </a>

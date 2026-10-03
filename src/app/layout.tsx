@@ -21,9 +21,9 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Deni Hidayat | Principal Software Engineer & AI Engineer",
+  title: "Deni Hidayat | Principal Software Engineer",
   description:
-    "Portfolio and Curriculum Vitae of Deni Hidayat — Principal Software Engineer & AI Engineer specializing in enterprise web systems, LLM integrations, autonomous AI agents, and cloud architectures.",
+    "Portfolio and Curriculum Vitae of Deni Hidayat — Principal Software Engineer specializing in enterprise web systems, LLM integrations, autonomous AI agents, and cloud architectures.",
   keywords: [
     "Deni Hidayat",
     "Principal Software Engineer",
@@ -40,7 +40,7 @@ export const metadata: Metadata = {
   ],
   authors: [{ name: "Deni Hidayat" }],
   openGraph: {
-    title: "Deni Hidayat — Principal Software Engineer & AI Engineer",
+    title: "Deni Hidayat — Principal Software Engineer",
     description:
       "Curriculum Vitae & 22+ Enterprise Web, AI & Mobile Systems by Deni Hidayat.",
     type: "website",
@@ -48,12 +48,13 @@ export const metadata: Metadata = {
   },
   icons: {
     icon: [
-      { url: "/profile.jpg", type: "image/jpeg" },
-      { url: "/profile.jpg", sizes: "32x32", type: "image/jpeg" },
+      { url: "/favicon.svg", type: "image/svg+xml" },
+      { url: "/favicon-32x32.png", sizes: "32x32", type: "image/png" },
+      { url: "/favicon.ico", sizes: "any" },
     ],
-    shortcut: "/profile.jpg",
+    shortcut: "/favicon.ico",
     apple: [
-      { url: "/profile.jpg", sizes: "180x180", type: "image/jpeg" },
+      { url: "/apple-touch-icon.png", sizes: "180x180", type: "image/png" },
     ],
   },
 };
@@ -71,9 +72,8 @@ export default function RootLayout({
     >
       <head>
         <meta name="color-scheme" content="light dark" />
-        <link rel="icon" href="/profile.jpg" type="image/jpeg" />
-        <link rel="shortcut icon" href="/profile.jpg" type="image/jpeg" />
-        <link rel="apple-touch-icon" href="/profile.jpg" />
+        <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+        <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
         <script
           dangerouslySetInnerHTML={{
             __html: `

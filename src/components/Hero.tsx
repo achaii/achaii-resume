@@ -63,12 +63,16 @@ export default function Hero() {
               <span className="bg-primary/10 text-primary px-2.5 py-0.5 sm:px-3 sm:py-1 rounded-xl text-xs sm:text-lg border border-primary/20">
                 {resumeData.personal.title[lang]}
               </span>
-              <span className="text-muted-foreground text-base sm:text-lg hidden sm:inline">
-                •
-              </span>
-              <span className="text-muted-foreground text-xs sm:text-base hidden sm:inline">
-                {resumeData.personal.subTitle[lang]}
-              </span>
+              {resumeData.personal.subTitle[lang] ? (
+                <>
+                  <span className="text-muted-foreground text-base sm:text-lg hidden sm:inline">
+                    •
+                  </span>
+                  <span className="text-muted-foreground text-xs sm:text-base hidden sm:inline">
+                    {resumeData.personal.subTitle[lang]}
+                  </span>
+                </>
+              ) : null}
             </p>
           </div>
 
