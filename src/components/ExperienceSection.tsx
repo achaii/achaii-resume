@@ -28,34 +28,37 @@ export default function ExperienceSection() {
           </p>
         </div>
 
-        {/* Timeline Container with Dead-Center Line & Nodes */}
-        <div className="relative pl-10 sm:pl-14 space-y-8">
-          {/* Vertical timeline line centered at left-4 (mobile) and left-5 (sm+) */}
-          <div
-            aria-hidden="true"
-            className="absolute left-4 sm:left-5 top-3 bottom-3 w-0.5 -translate-x-1/2 bg-border/80"
-          />
-
-          {resumeData.experiences.map((exp) => {
+        {/* Timeline Container with Perfect Flexbox Center Alignment */}
+        <div className="space-y-6 sm:space-y-8">
+          {resumeData.experiences.map((exp, idx) => {
             const isPresent =
               exp.period[lang].toLowerCase().includes("present") ||
               exp.period[lang].toLowerCase().includes("saat ini");
+            const isLast = idx === resumeData.experiences.length - 1;
 
             return (
-              <div key={exp.id} className="relative group">
-                {/* Timeline node icon: 100% mathematically centered on the line */}
-                <div
-                  className={`absolute left-4 sm:left-5 -translate-x-1/2 top-4 size-7 sm:size-8 rounded-full border-2 flex items-center justify-center transition-transform group-hover:scale-110 z-10 ${
-                    isPresent
-                      ? "border-primary bg-primary text-primary-foreground shadow-md"
-                      : "border-border bg-card text-muted-foreground group-hover:border-primary group-hover:text-primary shadow-xs"
-                  }`}
-                >
-                  <Briefcase className="size-3.5" />
+              <div key={exp.id} className="flex gap-4 sm:gap-6 items-start group">
+                {/* Timeline Axis Column: Circle and Vertical Line both centered on same axis */}
+                <div className="flex flex-col items-center self-stretch shrink-0 pt-1">
+                  {/* Circle Node: Perfectly on the timeline axis, outside the card */}
+                  <div
+                    className={`size-8 sm:size-9 rounded-full border-2 flex items-center justify-center transition-transform group-hover:scale-110 shrink-0 z-10 ${
+                      isPresent
+                        ? "border-primary bg-primary text-primary-foreground shadow-md"
+                        : "border-border bg-card text-muted-foreground group-hover:border-primary group-hover:text-primary shadow-xs"
+                    }`}
+                  >
+                    <Briefcase className="size-3.5 sm:size-4" />
+                  </div>
+
+                  {/* Vertical Connecting Line */}
+                  {!isLast && (
+                    <div className="w-0.5 bg-border/80 flex-1 my-2 min-h-[2.5rem]" />
+                  )}
                 </div>
 
-                {/* Experience Card */}
-                <div className="p-5 sm:p-6 rounded-3xl border border-border bg-card shadow-xs group-hover:border-primary/40 transition-all">
+                {/* Experience Card: Sibling to the left column, never overlapping */}
+                <div className="flex-1 p-5 sm:p-6 rounded-3xl border border-border bg-card shadow-xs group-hover:border-primary/40 transition-all">
                   {/* Header info */}
                   <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 mb-3">
                     <div>
