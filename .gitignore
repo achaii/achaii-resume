@@ -49,3 +49,4 @@ CLAUDE.md
 # deployment & utility scripts
 DEPLOY_VERCEL.md
 generate_favicons.mjs
+.gitignore
