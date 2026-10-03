@@ -38,16 +38,16 @@ export const resumeData = {
   personal: {
     name: "Deni Hidayat",
     title: {
-      en: "Software Engineer",
-      id: "Software Engineer",
+      en: "Principal Software Engineer & AI Engineer",
+      id: "Principal Software Engineer & AI Engineer",
     },
     subTitle: {
-      en: "Full-Stack Web & Hybrid Mobile Developer",
-      id: "Pengembang Web Full-Stack & Mobile Hybrid",
+      en: "Enterprise Systems Architect • AI Engineering • Independent Practice",
+      id: "Arsitek Sistem Enterprise • AI Engineering • Independent Practice",
     },
     bio: {
-      en: "Results-driven Software Engineer with over 7 years of hands-on experience architecting and delivering enterprise web applications, government information systems, banking IT support, and mobile solutions. Deep technical expertise in the Laravel ecosystem, modern JavaScript (React, Vue, Alpine), RESTful APIs, relational databases (MySQL, PostgreSQL), and cloud backends.",
-      id: "Software Engineer berpengalaman lebih dari 7 tahun dalam membangun sistem informasi berskala institusi pemerintahan, aplikasi perbankan, platform e-commerce, dan sistem manajemen enterprise. Memiliki keahlian mendalam pada ekosistem Laravel, modern JavaScript (React, Vue, Alpine), REST API, serta arsitektur database relasional & cloud.",
+      en: "Results-driven Principal Software Engineer & AI Engineer with over 7 years of hands-on experience architecting and delivering enterprise web applications, government information systems, banking IT solutions, and intelligent AI-powered architectures. Deep technical expertise in the Laravel ecosystem, modern JavaScript (React, Vue, Alpine), RESTful APIs, relational & cloud databases, alongside cutting-edge AI Engineering (Large Language Model / LLM integration, autonomous AI agents, prompt engineering, RAG pipelines, and intelligent automated workflows).",
+      id: "Principal Software Engineer & AI Engineer berpengalaman lebih dari 7 tahun dalam membangun sistem informasi berskala institusi pemerintahan, aplikasi perbankan, platform e-commerce, dan sistem manajemen enterprise. Memiliki keahlian mendalam pada ekosistem Laravel, modern JavaScript (React, Vue, Alpine), REST API, arsitektur database relasional & cloud, serta implementasi AI Engineering (integrasi Large Language Models / LLM, autonomous AI agents, prompt engineering, RAG pipelines, dan intelligent workflow automation).",
     },
     availability: {
       en: "Available for Opportunities & New Projects",
@@ -126,11 +126,11 @@ export const resumeData = {
       },
     },
     {
-      id: "freelance",
-      company: "Freelance / Independent Practice",
+      id: "independent-practice",
+      company: "Independent Practice",
       role: {
-        en: "Senior Software Engineer",
-        id: "Software Engineer",
+        en: "Principal Software Engineer & AI Engineer",
+        id: "Principal Software Engineer & AI Engineer",
       },
       period: {
         en: "01/2019 – Present",
@@ -138,18 +138,20 @@ export const resumeData = {
       },
       highlights: {
         en: [
-          "Architected and deployed full-stack frontend and backend web applications for diverse industries.",
-          "Built highly responsive, accessible, and high-performance interactive user interfaces.",
-          "Engineered robust RESTful APIs with microservices and third-party payment/notification integrations.",
-          "Developed hybrid Android mobile applications utilizing Ionic Framework and ReactJS.",
-          "Integrated hybrid mobile applications with native Android APIs, including hardware Serial Port communication bridges.",
+          "Led architectural design and end-to-end full-stack development of resilient, high-performance enterprise web systems (Laravel, React, Next.js, Vue).",
+          "Architected and deployed cutting-edge AI Engineering capabilities, integrating Large Language Models (LLM), autonomous AI agents, prompt engineering, RAG pipelines, and intelligent automated workflows.",
+          "Engineered high-throughput, secure RESTful APIs, relational & cloud databases (MySQL, PostgreSQL), and microservices architectures.",
+          "Designed and built fast, highly accessible, and reactive user interfaces utilizing modern JavaScript ecosystems.",
+          "Developed hybrid Android mobile applications with Ionic Framework & ReactJS, seamlessly bridged with native Android OS modules and hardware Serial Port communication.",
+          "Acted as Principal Technical Consultant providing architectural governance, code standards, security best practices, and agile delivery for enterprise clients.",
         ],
         id: [
-          "Mengembangkan arsitektur frontend dan backend aplikasi web modern dan responsif.",
-          "Membuat tampilan antarmuka interaktif yang cepat, aksesibel, dan mobile-friendly.",
-          "Merancang dan mengintegrasikan RESTful API performa tinggi ke dalam aplikasi.",
-          "Mengembangkan aplikasi Android berbasis hybrid (Ionic Framework & ReactJS).",
-          "Mengintegrasikan modul hybrid dengan fitur Android native serta Serial Port Bridge.",
+          "Memimpin perancangan arsitektur dan pengembangan full-stack sistem aplikasi web berskala enterprise yang tangguh, cepat, dan teruji (Laravel, React, Next.js, Vue).",
+          "Mengembangkan dan mengintegrasikan solusi AI Engineering, meliputi integrasi Large Language Models (LLM), autonomous AI agents, prompt engineering, RAG pipelines, serta otomatisasi alur kerja cerdas ke dalam proses bisnis institusi dan enterprise.",
+          "Merancang dan mengoptimalkan RESTful API performa tinggi, arsitektur basis data relasional & cloud (MySQL, PostgreSQL), serta microservices.",
+          "Membangun antarmuka interaktif yang cepat, aksesibel, dan responsif menggunakan ekosistem modern JavaScript.",
+          "Mengembangkan aplikasi Android berbasis hybrid (Ionic Framework & ReactJS) terintegrasi modul native Android serta hardware Serial Port Bridge.",
+          "Bertindak sebagai Principal Engineer dalam menetapkan standar kode, tata kelola arsitektur sistem, keamanan data, dan praktik rekayasa perangkat lunak terbaik.",
         ],
       },
     },
@@ -268,6 +270,14 @@ export const resumeData = {
   ] as Education[],
 
   skills: {
+    aiEngineering: [
+      "Large Language Models (LLM) Integration",
+      "Autonomous AI Agents",
+      "Prompt Engineering",
+      "RAG (Retrieval-Augmented Generation)",
+      "OpenAI & Claude APIs",
+      "Intelligent Workflow Automation",
+    ],
     programming: [
       { name: "JavaScript", level: "Advance" },
       { name: "PHP", level: "Advance" },

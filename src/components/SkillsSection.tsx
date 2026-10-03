@@ -7,6 +7,7 @@ import {
   Database,
   Smartphone,
   FileSpreadsheet,
+  Bot,
 } from "lucide-react";
 import { resumeData } from "@/data/resumeData";
 import { useLanguage } from "@/context/LanguageContext";
@@ -37,6 +38,28 @@ export default function SkillsSection() {
 
         {/* Skills Grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
+          {/* AI Engineering & LLMs */}
+          <div className="p-6 rounded-3xl border border-primary/30 bg-primary/5 shadow-xs hover:border-primary/50 transition-colors">
+            <div className="flex items-center gap-2.5 mb-4">
+              <div className="size-8 rounded-xl bg-primary/20 flex items-center justify-center text-primary">
+                <Bot className="size-4" />
+              </div>
+              <h3 className="font-heading text-lg font-bold text-foreground">
+                {lang === "en" ? "AI Engineering & LLMs" : "AI Engineering & LLMs"}
+              </h3>
+            </div>
+            <div className="flex flex-wrap gap-2">
+              {resumeData.skills.aiEngineering.map((item) => (
+                <span
+                  key={item}
+                  className="text-xs font-mono px-3 py-1 rounded-xl bg-card border border-primary/20 text-foreground font-medium shadow-xs"
+                >
+                  {item}
+                </span>
+              ))}
+            </div>
+          </div>
+
           {/* Programming Languages */}
           <div className="p-6 rounded-3xl border border-border bg-card shadow-xs hover:border-primary/40 transition-colors">
             <div className="flex items-center gap-2.5 mb-4">

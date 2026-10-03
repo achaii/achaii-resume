@@ -21,39 +21,39 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Deni Hidayat | Software Engineer & Portfolio",
+  title: "Deni Hidayat | Principal Software Engineer & AI Engineer",
   description:
-    "Portfolio and Curriculum Vitae of Deni Hidayat — Senior Software Engineer specializing in full-stack web architectures (Laravel, React, Livewire), hybrid mobile solutions, and enterprise information systems.",
+    "Portfolio and Curriculum Vitae of Deni Hidayat — Principal Software Engineer & AI Engineer specializing in enterprise web systems, LLM integrations, autonomous AI agents, and cloud architectures.",
   keywords: [
     "Deni Hidayat",
+    "Principal Software Engineer",
+    "AI Engineer",
+    "AI Engineering",
     "Software Engineer",
     "Web Developer",
-    "Android Developer",
     "Laravel",
     "React",
-    "Ionic",
+    "Next.js",
+    "Autonomous Agents",
     "Portfolio",
     "Resume",
-    "Bandung",
-    "Tasikmalaya",
   ],
   authors: [{ name: "Deni Hidayat" }],
   openGraph: {
-    title: "Deni Hidayat — Software Engineer Portfolio",
+    title: "Deni Hidayat — Principal Software Engineer & AI Engineer",
     description:
-      "Curriculum Vitae & 22+ Enterprise Web & Mobile Systems by Deni Hidayat.",
+      "Curriculum Vitae & 22+ Enterprise Web, AI & Mobile Systems by Deni Hidayat.",
     type: "website",
     locale: "en_US",
   },
   icons: {
     icon: [
-      { url: "/favicon.svg", type: "image/svg+xml" },
-      { url: "/favicon-32x32.png", sizes: "32x32", type: "image/png" },
-      { url: "/favicon.ico", sizes: "any" },
+      { url: "/profile.jpg", type: "image/jpeg" },
+      { url: "/profile.jpg", sizes: "32x32", type: "image/jpeg" },
     ],
-    shortcut: "/favicon.ico",
+    shortcut: "/profile.jpg",
     apple: [
-      { url: "/apple-touch-icon.png", sizes: "180x180", type: "image/png" },
+      { url: "/profile.jpg", sizes: "180x180", type: "image/jpeg" },
     ],
   },
 };
@@ -71,6 +71,9 @@ export default function RootLayout({
     >
       <head>
         <meta name="color-scheme" content="light dark" />
+        <link rel="icon" href="/profile.jpg" type="image/jpeg" />
+        <link rel="shortcut icon" href="/profile.jpg" type="image/jpeg" />
+        <link rel="apple-touch-icon" href="/profile.jpg" />
         <script
           dangerouslySetInnerHTML={{
             __html: `
