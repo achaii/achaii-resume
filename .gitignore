@@ -16,7 +16,6 @@
 # next.js
 /.next/
 /out/
-/.agent/
 
 # production
 /build
@@ -41,4 +40,12 @@ yarn-error.log*
 *.tsbuildinfo
 next-env.d.ts
 
+# agents & local AI configs
+.agent/
+.agent
+AGENTS.md
+CLAUDE.md
+
+# deployment & utility scripts
 DEPLOY_VERCEL.md
+generate_favicons.mjs
