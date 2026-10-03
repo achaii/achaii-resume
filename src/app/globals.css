@@ -173,55 +173,39 @@ h1, h2, h3, h4, .font-heading {
   text-transform: uppercase;
 }
 
-/* Rulers layout helper per DESIGN.md */
-.rulers-grid {
-  position: relative;
-  display: flex;
-  min-width: 0;
-  flex-direction: column;
-}
-
-.rulers-grid > * {
-  border-bottom: 1px solid color-mix(in oklch, var(--foreground) 8%, transparent);
-}
-
-/* Print Stylesheet for clean ATS & PDF export */
+/* Print Stylesheet for clean, border-free ATS & PDF export */
 @media print {
   @page {
-    margin: 1.5cm;
+    margin: 1.2cm 1.5cm;
     size: A4;
   }
   
+  *, *::before, *::after {
+    box-shadow: none !important;
+  }
+
   body {
     background: #ffffff !important;
-    color: #1a1a1a !important;
-    font-size: 11pt !important;
-    line-height: 1.4 !important;
+    color: #111827 !important;
+    font-size: 10pt !important;
+    line-height: 1.35 !important;
   }
   
   .no-print,
   nav,
   header,
   footer,
-  .theme-toggle-btn,
-  .print-hide {
+  button,
+  input {
     display: none !important;
-  }
-  
-  .print-only {
-    display: block !important;
   }
   
   .card,
   section,
   article {
-    break-inside: avoid;
+    border: none !important;
+    background: transparent !important;
     box-shadow: none !important;
-    border: 1px solid #e2e8f0 !important;
-  }
-  
-  a {
-    color: #1a1a1a !important;
-    text-decoration: underline !important;
+    break-inside: avoid;
   }
 }

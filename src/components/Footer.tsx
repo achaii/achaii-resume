@@ -1,9 +1,12 @@
 "use client";
 
-import { ArrowUp, Code2, Heart } from "lucide-react";
+import { ArrowUp, Code2 } from "lucide-react";
 import { resumeData } from "@/data/resumeData";
+import { useLanguage } from "@/context/LanguageContext";
 
 export default function Footer() {
+  const { lang } = useLanguage();
+
   const scrollToTop = () => {
     window.scrollTo({ top: 0, behavior: "smooth" });
   };
@@ -21,34 +24,34 @@ export default function Footer() {
                 {resumeData.personal.name}
               </span>
               <span className="text-xs text-muted-foreground font-mono">
-                {resumeData.personal.title} — Bandung & Tasikmalaya
+                {resumeData.personal.title[lang]} — {resumeData.personal.subTitle[lang]}
               </span>
             </div>
           </div>
 
           <div className="flex items-center gap-4 text-xs font-medium text-muted-foreground">
             <a href="#hero" className="hover:text-foreground transition-colors">
-              Tentang
+              {lang === "en" ? "About" : "Tentang"}
             </a>
             <a href="#pengalaman" className="hover:text-foreground transition-colors">
-              Pengalaman
+              {lang === "en" ? "Experience" : "Pengalaman"}
             </a>
             <a href="#portofolio" className="hover:text-foreground transition-colors">
-              Portofolio (22)
+              {lang === "en" ? "Portfolio (22)" : "Portofolio (22)"}
             </a>
             <a href="#keahlian" className="hover:text-foreground transition-colors">
-              Keahlian
+              {lang === "en" ? "Skills" : "Keahlian"}
             </a>
             <a href="#kontak" className="hover:text-foreground transition-colors">
-              Kontak
+              {lang === "en" ? "Contact" : "Kontak"}
             </a>
           </div>
 
           <button
             onClick={scrollToTop}
-            aria-label="Kembali ke atas"
+            aria-label="Back to top"
             className="size-9 rounded-full border border-border bg-card hover:bg-muted text-foreground flex items-center justify-center transition-all shadow-xs"
-            title="Kembali ke atas"
+            title={lang === "en" ? "Back to top" : "Kembali ke atas"}
           >
             <ArrowUp className="size-4" />
           </button>
@@ -56,9 +59,6 @@ export default function Footer() {
 
         <div className="pt-6 flex flex-col sm:flex-row items-center justify-between gap-3 text-xs text-muted-foreground font-mono">
           <p>© {new Date().getFullYear()} {resumeData.personal.name}. All rights reserved.</p>
-          <p className="flex items-center gap-1">
-            Built with Next.js & Tailwind CSS • Ready for Vercel
-          </p>
         </div>
       </div>
     </footer>

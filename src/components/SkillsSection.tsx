@@ -1,15 +1,19 @@
+"use client";
+
 import {
   Code,
   Server,
   Layers,
   Database,
   Smartphone,
-  CheckCircle,
   FileSpreadsheet,
 } from "lucide-react";
 import { resumeData } from "@/data/resumeData";
+import { useLanguage } from "@/context/LanguageContext";
 
 export default function SkillsSection() {
+  const { lang } = useLanguage();
+
   return (
     <section id="keahlian" className="py-16 sm:py-20 border-b border-border/70">
       <div className="max-w-5xl mx-auto px-4 sm:px-6">
@@ -17,43 +21,47 @@ export default function SkillsSection() {
         <div className="mb-12">
           <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-primary/10 text-primary text-xs font-semibold mb-3 border border-primary/20">
             <Code className="size-3.5" />
-            <span>Kompetensi Teknis</span>
+            <span>
+              {lang === "en" ? "Technical Competencies" : "Kompetensi Teknis"}
+            </span>
           </div>
           <h2 className="font-heading text-3xl sm:text-4xl font-bold text-foreground tracking-tight mb-2">
-            Keahlian & Teknologi
+            {lang === "en" ? "Skills & Technology" : "Keahlian & Teknologi"}
           </h2>
           <p className="text-muted-foreground text-sm sm:text-base max-w-2xl">
-            Kombinasi bahasa pemrograman, framework antarmuka, arsitektur backend, manajemen basis data, serta analisis proses bisnis.
+            {lang === "en"
+              ? "Comprehensive stack spanning programming languages, modern reactive frameworks, backend services, cloud databases, and business process modeling."
+              : "Kombinasi bahasa pemrograman, framework antarmuka, arsitektur backend, manajemen basis data, serta analisis proses bisnis."}
           </p>
         </div>
 
         {/* Skills Grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
           {/* Programming Languages */}
-          <div className="p-5 rounded-3xl border border-border bg-card shadow-xs hover:border-primary/40 transition-colors">
+          <div className="p-6 rounded-3xl border border-border bg-card shadow-xs hover:border-primary/40 transition-colors">
             <div className="flex items-center gap-2.5 mb-4">
               <div className="size-8 rounded-xl bg-primary/10 flex items-center justify-center text-primary">
                 <Code className="size-4" />
               </div>
               <h3 className="font-heading text-lg font-bold text-foreground">
-                Bahasa Pemrograman
+                {lang === "en" ? "Programming Languages" : "Bahasa Pemrograman"}
               </h3>
             </div>
             <div className="space-y-2.5">
-              {resumeData.skills.programming.map((lang) => (
+              {resumeData.skills.programming.map((langItem) => (
                 <div
-                  key={lang.name}
+                  key={langItem.name}
                   className="flex items-center justify-between p-2 rounded-xl bg-muted/50 border border-border/50 text-xs"
                 >
-                  <span className="font-medium text-foreground">{lang.name}</span>
+                  <span className="font-medium text-foreground">{langItem.name}</span>
                   <span
                     className={`font-mono text-[10px] font-bold px-2 py-0.5 rounded-full ${
-                      lang.level === "Advance"
+                      langItem.level === "Advance"
                         ? "bg-primary/15 text-primary border border-primary/30"
                         : "bg-muted text-muted-foreground border border-border"
                     }`}
                   >
-                    {lang.level}
+                    {langItem.level}
                   </span>
                 </div>
               ))}
@@ -61,13 +69,13 @@ export default function SkillsSection() {
           </div>
 
           {/* Backend Frameworks */}
-          <div className="p-5 rounded-3xl border border-border bg-card shadow-xs hover:border-primary/40 transition-colors">
+          <div className="p-6 rounded-3xl border border-border bg-card shadow-xs hover:border-primary/40 transition-colors">
             <div className="flex items-center gap-2.5 mb-4">
               <div className="size-8 rounded-xl bg-primary/10 flex items-center justify-center text-primary">
                 <Server className="size-4" />
               </div>
               <h3 className="font-heading text-lg font-bold text-foreground">
-                Backend & Frameworks
+                {lang === "en" ? "Backend & Frameworks" : "Backend & Frameworks"}
               </h3>
             </div>
             <div className="flex flex-wrap gap-2">
@@ -83,13 +91,13 @@ export default function SkillsSection() {
           </div>
 
           {/* Frontend Frameworks & Libraries */}
-          <div className="p-5 rounded-3xl border border-border bg-card shadow-xs hover:border-primary/40 transition-colors">
+          <div className="p-6 rounded-3xl border border-border bg-card shadow-xs hover:border-primary/40 transition-colors">
             <div className="flex items-center gap-2.5 mb-4">
               <div className="size-8 rounded-xl bg-primary/10 flex items-center justify-center text-primary">
                 <Layers className="size-4" />
               </div>
               <h3 className="font-heading text-lg font-bold text-foreground">
-                Frontend & Visualisasi
+                {lang === "en" ? "Frontend & Visualization" : "Frontend & Visualisasi"}
               </h3>
             </div>
             <div className="flex flex-wrap gap-2">
@@ -105,13 +113,13 @@ export default function SkillsSection() {
           </div>
 
           {/* Databases & Storage */}
-          <div className="p-5 rounded-3xl border border-border bg-card shadow-xs hover:border-primary/40 transition-colors">
+          <div className="p-6 rounded-3xl border border-border bg-card shadow-xs hover:border-primary/40 transition-colors">
             <div className="flex items-center gap-2.5 mb-4">
               <div className="size-8 rounded-xl bg-primary/10 flex items-center justify-center text-primary">
                 <Database className="size-4" />
               </div>
               <h3 className="font-heading text-lg font-bold text-foreground">
-                Database & Cloud Storage
+                {lang === "en" ? "Database & Cloud Storage" : "Database & Cloud Storage"}
               </h3>
             </div>
             <div className="flex flex-wrap gap-2">
@@ -127,13 +135,13 @@ export default function SkillsSection() {
           </div>
 
           {/* Mobile & Hardware Integration */}
-          <div className="p-5 rounded-3xl border border-border bg-card shadow-xs hover:border-primary/40 transition-colors">
+          <div className="p-6 rounded-3xl border border-border bg-card shadow-xs hover:border-primary/40 transition-colors">
             <div className="flex items-center gap-2.5 mb-4">
               <div className="size-8 rounded-xl bg-primary/10 flex items-center justify-center text-primary">
                 <Smartphone className="size-4" />
               </div>
               <h3 className="font-heading text-lg font-bold text-foreground">
-                Mobile & Bridge Perangkat
+                {lang === "en" ? "Mobile & Hardware Bridge" : "Mobile & Bridge Perangkat"}
               </h3>
             </div>
             <div className="flex flex-wrap gap-2">
@@ -149,13 +157,13 @@ export default function SkillsSection() {
           </div>
 
           {/* Analysis, Project & Documentation */}
-          <div className="p-5 rounded-3xl border border-border bg-card shadow-xs hover:border-primary/40 transition-colors">
+          <div className="p-6 rounded-3xl border border-border bg-card shadow-xs hover:border-primary/40 transition-colors">
             <div className="flex items-center gap-2.5 mb-4">
               <div className="size-8 rounded-xl bg-primary/10 flex items-center justify-center text-primary">
                 <FileSpreadsheet className="size-4" />
               </div>
               <h3 className="font-heading text-lg font-bold text-foreground">
-                Analisis & Manajemen
+                {lang === "en" ? "Analysis & Management" : "Analisis & Manajemen"}
               </h3>
             </div>
             <div className="flex flex-wrap gap-2">

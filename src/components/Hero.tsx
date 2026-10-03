@@ -4,21 +4,21 @@ import { useState } from "react";
 import {
   Mail,
   Phone,
-  MapPin,
   Copy,
   Check,
   FileDown,
   ArrowRight,
   Sparkles,
-  Calendar,
   Briefcase,
   GraduationCap,
   Award,
 } from "lucide-react";
 import { GithubIcon, LinkedinIcon } from "@/components/Icons";
 import { resumeData } from "@/data/resumeData";
+import { useLanguage } from "@/context/LanguageContext";
 
 export default function Hero() {
+  const { lang } = useLanguage();
   const [copiedType, setCopiedType] = useState<string | null>(null);
 
   const handleCopy = (text: string, type: string) => {
@@ -32,8 +32,11 @@ export default function Hero() {
   };
 
   return (
-    <section id="hero" className="pt-28 pb-16 sm:pt-36 sm:pb-20 border-b border-border/70 relative overflow-hidden">
-      {/* Subtle decorative radial gradient in background */}
+    <section
+      id="hero"
+      className="pt-28 pb-16 sm:pt-36 sm:pb-20 border-b border-border/70 relative overflow-hidden"
+    >
+      {/* Decorative ambient glow */}
       <div className="absolute top-10 left-1/2 -translate-x-1/2 w-[600px] h-[350px] bg-primary/5 dark:bg-primary/10 blur-[120px] rounded-full pointer-events-none -z-10" />
 
       <div className="max-w-5xl mx-auto px-4 sm:px-6">
@@ -43,36 +46,38 @@ export default function Hero() {
             <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
             <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-500"></span>
           </span>
-          <span>Tersedia untuk Peluang Karir & Proyek Baru</span>
+          <span>{resumeData.personal.availability[lang]}</span>
         </div>
 
-        {/* Tagline per DESIGN.md */}
-        <p className="tagline">Curriculum Vitae & Portofolio Profesional</p>
+        {/* Tagline */}
+        <p className="tagline">{resumeData.personal.tagline[lang]}</p>
 
-        {/* Name and Title */}
+        {/* Name and Title (Clean: Deni Hidayat without ST MOS) */}
         <div className="space-y-4 mb-6">
           <h1 className="font-heading text-4xl sm:text-5xl md:text-6xl font-bold tracking-tight text-foreground text-balance">
             {resumeData.personal.name}
           </h1>
           <p className="text-xl sm:text-2xl font-medium text-primary flex items-center gap-2">
             <span className="bg-primary/10 text-primary px-3 py-1 rounded-xl text-base sm:text-lg border border-primary/20">
-              {resumeData.personal.title}
+              {resumeData.personal.title[lang]}
             </span>
-            <span className="text-muted-foreground text-base sm:text-lg hidden sm:inline">•</span>
+            <span className="text-muted-foreground text-base sm:text-lg hidden sm:inline">
+              •
+            </span>
             <span className="text-muted-foreground text-sm sm:text-base hidden sm:inline">
-              {resumeData.personal.subTitle}
+              {resumeData.personal.subTitle[lang]}
             </span>
           </p>
         </div>
 
         {/* Bio Paragraph */}
         <p className="text-base sm:text-lg text-foreground/80 leading-relaxed max-w-3xl mb-8">
-          {resumeData.personal.bio}
+          {resumeData.personal.bio[lang]}
         </p>
 
-        {/* Contact info badges with quick-copy */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-2.5 mb-8">
-          {/* Phone */}
+        {/* Direct Contact Chips (Address removed per user request) */}
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 mb-8 max-w-2xl">
+          {/* Phone / WhatsApp */}
           <div className="flex items-center justify-between p-3 rounded-2xl border border-border bg-card/70 hover:border-primary/40 transition-colors group">
             <a
               href={`https://wa.me/${resumeData.personal.phoneClean}`}
@@ -88,7 +93,7 @@ export default function Hero() {
             <button
               onClick={() => handleCopy(resumeData.personal.phone, "phone")}
               className="p-1 rounded-md hover:bg-muted text-muted-foreground hover:text-foreground shrink-0 transition-colors"
-              title="Salin Nomor WhatsApp / Telepon"
+              title={lang === "en" ? "Copy Phone Number" : "Salin Nomor Telepon"}
             >
               {copiedType === "phone" ? (
                 <Check className="size-3.5 text-emerald-500" />
@@ -112,7 +117,7 @@ export default function Hero() {
             <button
               onClick={() => handleCopy(resumeData.personal.email, "email")}
               className="p-1 rounded-md hover:bg-muted text-muted-foreground hover:text-foreground shrink-0 transition-colors"
-              title="Salin Email"
+              title={lang === "en" ? "Copy Email" : "Salin Email"}
             >
               {copiedType === "email" ? (
                 <Check className="size-3.5 text-emerald-500" />
@@ -121,21 +126,15 @@ export default function Hero() {
               )}
             </button>
           </div>
-
-          {/* Location / Domicile */}
-          <div className="flex items-center gap-2.5 p-3 rounded-2xl border border-border bg-card/70 text-xs text-foreground truncate sm:col-span-2 md:col-span-1">
-            <div className="size-7 rounded-lg bg-primary/10 flex items-center justify-center shrink-0">
-              <MapPin className="size-3.5 text-primary" />
-            </div>
-            <span className="truncate">{resumeData.personal.domicile}</span>
-          </div>
         </div>
 
-        {/* Social Links & CTA Buttons */}
+        {/* CTA Buttons & Social Links */}
         <div className="flex flex-wrap items-center gap-3 mb-12">
           {/* Portfolio CTA Button */}
           <a href="#portofolio" className="btn-3d btn-3d-primary text-sm px-5 py-2.5">
-            <span>Eksplorasi 22+ Proyek</span>
+            <span>
+              {lang === "en" ? "Explore 22+ Projects" : "Eksplorasi 22+ Proyek"}
+            </span>
             <ArrowRight className="size-4" />
           </a>
 
@@ -145,7 +144,9 @@ export default function Hero() {
             className="btn-3d btn-3d-outline text-sm px-4 py-2.5"
           >
             <FileDown className="size-4 text-primary" />
-            <span>Cetak / Unduh PDF</span>
+            <span>
+              {lang === "en" ? "Print / Export PDF" : "Cetak / Unduh PDF"}
+            </span>
           </button>
 
           {/* GitHub Link */}
@@ -154,7 +155,7 @@ export default function Hero() {
             target="_blank"
             rel="noopener noreferrer"
             className="btn-3d btn-3d-outline text-xs px-3.5 py-2.5"
-            title="Kunjungi GitHub"
+            title="GitHub"
           >
             <GithubIcon className="size-4" />
             <span>github/{resumeData.personal.github}</span>
@@ -166,7 +167,7 @@ export default function Hero() {
             target="_blank"
             rel="noopener noreferrer"
             className="btn-3d btn-3d-outline text-xs px-3.5 py-2.5"
-            title="Kunjungi LinkedIn"
+            title="LinkedIn"
           >
             <LinkedinIcon className="size-4 text-blue-500" />
             <span>linkedin/in/{resumeData.personal.linkedin}</span>
@@ -185,15 +186,15 @@ export default function Hero() {
 
             return (
               <div
-                key={stat.label}
+                key={stat.label.en}
                 className="p-4 rounded-2xl border border-border bg-card shadow-xs hover:border-primary/40 transition-all"
               >
                 <div className="flex items-center gap-2 mb-2 text-muted-foreground text-xs font-medium">
                   {icons[idx]}
-                  <span>{stat.label}</span>
+                  <span>{stat.label[lang]}</span>
                 </div>
                 <div className="font-heading text-xl sm:text-2xl font-bold text-foreground">
-                  {stat.value}
+                  {lang === "en" ? stat.value : stat.valueId}
                 </div>
               </div>
             );

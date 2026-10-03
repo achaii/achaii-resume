@@ -21,9 +21,9 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Deni Hidayat, S.T., MOS | Software Engineer & Portofolio",
+  title: "Deni Hidayat | Software Engineer & Portfolio",
   description:
-    "Portofolio dan Curriculum Vitae Deni Hidayat, S.T., MOS — Software Engineer dengan pengalaman pengembangan aplikasi Web Full Stack (Laravel, ReactJS, Livewire), Mobile Hybrid (Ionic), dan Sistem Enterprise.",
+    "Portfolio and Curriculum Vitae of Deni Hidayat — Senior Software Engineer specializing in full-stack web architectures (Laravel, React, Livewire), hybrid mobile solutions, and enterprise information systems.",
   keywords: [
     "Deni Hidayat",
     "Software Engineer",
@@ -32,17 +32,18 @@ export const metadata: Metadata = {
     "Laravel",
     "React",
     "Ionic",
-    "Portofolio",
+    "Portfolio",
+    "Resume",
     "Bandung",
     "Tasikmalaya",
   ],
-  authors: [{ name: "Deni Hidayat, S.T., MOS" }],
+  authors: [{ name: "Deni Hidayat" }],
   openGraph: {
-    title: "Deni Hidayat, S.T., MOS — Software Engineer Portfolio",
+    title: "Deni Hidayat — Software Engineer Portfolio",
     description:
-      "Curriculum Vitae & 22+ Rekam Jejak Proyek Sistem Informasi Web & Mobile Deni Hidayat, S.T., MOS.",
+      "Curriculum Vitae & 22+ Enterprise Web & Mobile Systems by Deni Hidayat.",
     type: "website",
-    locale: "id_ID",
+    locale: "en_US",
   },
 };
 
