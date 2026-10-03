@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import Image from "next/image";
 import {
   Mail,
   Phone,
@@ -13,7 +14,7 @@ import {
   GraduationCap,
   Award,
 } from "lucide-react";
-import { GithubIcon, LinkedinIcon } from "@/components/Icons";
+import { GithubIcon, LinkedinIcon, InstagramIcon } from "@/components/Icons";
 import { resumeData } from "@/data/resumeData";
 import { useLanguage } from "@/context/LanguageContext";
 
@@ -52,22 +53,48 @@ export default function Hero() {
         {/* Tagline */}
         <p className="tagline">{resumeData.personal.tagline[lang]}</p>
 
-        {/* Name and Title (Clean: Deni Hidayat without ST MOS) */}
-        <div className="space-y-4 mb-6">
-          <h1 className="font-heading text-4xl sm:text-5xl md:text-6xl font-bold tracking-tight text-foreground text-balance">
-            {resumeData.personal.name}
-          </h1>
-          <p className="text-xl sm:text-2xl font-medium text-primary flex items-center gap-2">
-            <span className="bg-primary/10 text-primary px-3 py-1 rounded-xl text-base sm:text-lg border border-primary/20">
-              {resumeData.personal.title[lang]}
-            </span>
-            <span className="text-muted-foreground text-base sm:text-lg hidden sm:inline">
-              •
-            </span>
-            <span className="text-muted-foreground text-sm sm:text-base hidden sm:inline">
-              {resumeData.personal.subTitle[lang]}
-            </span>
-          </p>
+        {/* Name and Title with Profile Photo */}
+        <div className="flex flex-col-reverse sm:flex-row sm:items-center sm:justify-between gap-6 mb-6">
+          <div className="space-y-4">
+            <h1 className="font-heading text-4xl sm:text-5xl md:text-6xl font-bold tracking-tight text-foreground text-balance">
+              {resumeData.personal.name}
+            </h1>
+            <p className="text-xl sm:text-2xl font-medium text-primary flex items-center gap-2 flex-wrap">
+              <span className="bg-primary/10 text-primary px-3 py-1 rounded-xl text-base sm:text-lg border border-primary/20">
+                {resumeData.personal.title[lang]}
+              </span>
+              <span className="text-muted-foreground text-base sm:text-lg hidden sm:inline">
+                •
+              </span>
+              <span className="text-muted-foreground text-sm sm:text-base hidden sm:inline">
+                {resumeData.personal.subTitle[lang]}
+              </span>
+            </p>
+          </div>
+
+          {/* Profile Photo from Instagram */}
+          <div className="relative shrink-0 group self-start sm:self-center">
+            <div className="size-24 sm:size-32 rounded-3xl p-1 bg-gradient-to-br from-primary/50 via-primary/20 to-border ring-2 ring-primary/30 shadow-lg overflow-hidden group-hover:scale-105 group-hover:ring-primary transition-all duration-300 bg-card">
+              <Image
+                src="/profile.jpg"
+                alt={resumeData.personal.name}
+                width={128}
+                height={128}
+                className="w-full h-full object-cover rounded-[20px]"
+                priority
+              />
+            </div>
+            <a
+              href={resumeData.personal.instagramUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="absolute -bottom-2 -right-2 px-2.5 py-1 rounded-full bg-card border border-border shadow-md text-[10px] font-mono font-medium text-foreground hover:text-primary flex items-center gap-1 transition-colors"
+              title="Instagram @dennyachaii"
+            >
+              <InstagramIcon className="size-3 text-pink-500" />
+              <span>@dennyachaii</span>
+            </a>
+          </div>
         </div>
 
         {/* Bio Paragraph */}
@@ -171,6 +198,18 @@ export default function Hero() {
           >
             <LinkedinIcon className="size-4 text-blue-500" />
             <span>linkedin/in/{resumeData.personal.linkedin}</span>
+          </a>
+
+          {/* Instagram Link */}
+          <a
+            href={resumeData.personal.instagramUrl}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="btn-3d btn-3d-outline text-xs px-3.5 py-2.5"
+            title="Instagram"
+          >
+            <InstagramIcon className="size-4 text-pink-500" />
+            <span>instagram/@{resumeData.personal.instagram}</span>
           </a>
         </div>
 

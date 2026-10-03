@@ -64,6 +64,9 @@ export const resumeData = {
     githubUrl: "https://github.com/achaii",
     linkedin: "achaii",
     linkedinUrl: "https://linkedin.com/in/achaii",
+    instagram: "dennyachaii",
+    instagramUrl: "https://www.instagram.com/dennyachaii",
+    photoUrl: "/profile.jpg",
     birthPlaceDate: {
       en: "Bandung, June 13, 1989",
       id: "Bandung, 13 Juni 1989",

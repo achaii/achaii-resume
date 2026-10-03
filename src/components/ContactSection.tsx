@@ -10,7 +10,7 @@ import {
   Check,
   ExternalLink,
 } from "lucide-react";
-import { GithubIcon, LinkedinIcon } from "@/components/Icons";
+import { GithubIcon, LinkedinIcon, InstagramIcon } from "@/components/Icons";
 import { resumeData } from "@/data/resumeData";
 import { useLanguage } from "@/context/LanguageContext";
 
@@ -155,27 +155,38 @@ export default function ContactSection() {
             </div>
 
             {/* Social profiles */}
-            <div className="grid grid-cols-2 gap-3">
+            <div className="grid grid-cols-1 sm:grid-cols-3 gap-2.5">
               <a
                 href={resumeData.personal.githubUrl}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="p-4 rounded-3xl border border-border bg-card hover:border-primary/40 text-xs font-medium text-foreground flex items-center gap-2.5 group transition-all"
+                className="p-3.5 rounded-2xl border border-border bg-card hover:border-primary/40 text-xs font-medium text-foreground flex items-center gap-2 group transition-all"
               >
-                <GithubIcon className="size-4 text-foreground group-hover:text-primary" />
+                <GithubIcon className="size-4 text-foreground group-hover:text-primary shrink-0" />
                 <span className="truncate">GitHub</span>
-                <ExternalLink className="size-3 text-muted-foreground ml-auto" />
+                <ExternalLink className="size-3 text-muted-foreground ml-auto shrink-0" />
               </a>
 
               <a
                 href={resumeData.personal.linkedinUrl}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="p-4 rounded-3xl border border-border bg-card hover:border-primary/40 text-xs font-medium text-foreground flex items-center gap-2.5 group transition-all"
+                className="p-3.5 rounded-2xl border border-border bg-card hover:border-primary/40 text-xs font-medium text-foreground flex items-center gap-2 group transition-all"
               >
-                <LinkedinIcon className="size-4 text-blue-500" />
+                <LinkedinIcon className="size-4 text-blue-500 shrink-0" />
                 <span className="truncate">LinkedIn</span>
-                <ExternalLink className="size-3 text-muted-foreground ml-auto" />
+                <ExternalLink className="size-3 text-muted-foreground ml-auto shrink-0" />
+              </a>
+
+              <a
+                href={resumeData.personal.instagramUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="p-3.5 rounded-2xl border border-border bg-card hover:border-primary/40 text-xs font-medium text-foreground flex items-center gap-2 group transition-all"
+              >
+                <InstagramIcon className="size-4 text-pink-500 shrink-0" />
+                <span className="truncate">Instagram</span>
+                <ExternalLink className="size-3 text-muted-foreground ml-auto shrink-0" />
               </a>
             </div>
           </div>

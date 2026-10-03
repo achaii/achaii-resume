@@ -1,7 +1,8 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import { Moon, Sun, Printer, Menu, X, Code2, Globe } from "lucide-react";
+import Image from "next/image";
+import { Moon, Sun, Printer, Menu, X, Globe } from "lucide-react";
 import { resumeData } from "@/data/resumeData";
 import { useLanguage } from "@/context/LanguageContext";
 
@@ -69,13 +70,20 @@ export default function Navbar() {
       }`}
     >
       <div className="max-w-6xl mx-auto px-4 sm:px-6 flex items-center justify-between">
-        {/* Brand / Logo (Clean name: Deni Hidayat) */}
+        {/* Brand / Logo using Instagram profile photo */}
         <a
           href="#hero"
-          className="flex items-center gap-2 text-foreground font-semibold tracking-tight group"
+          className="flex items-center gap-2.5 text-foreground font-semibold tracking-tight group"
         >
-          <div className="size-8 rounded-lg bg-primary/10 border border-primary/20 flex items-center justify-center text-primary group-hover:scale-105 transition-transform">
-            <Code2 className="size-4 text-primary" />
+          <div className="relative size-8 sm:size-9 rounded-full ring-2 ring-primary/40 group-hover:ring-primary group-hover:scale-105 transition-all shadow-xs overflow-hidden shrink-0 bg-muted">
+            <Image
+              src="/profile.jpg"
+              alt={resumeData.personal.name}
+              width={36}
+              height={36}
+              className="w-full h-full object-cover"
+              priority
+            />
           </div>
           <div className="flex flex-col">
             <span className="font-heading text-base font-bold text-foreground leading-tight flex items-center gap-1.5">
