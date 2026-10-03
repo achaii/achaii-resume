@@ -156,16 +156,16 @@ export default function Navbar() {
         </a>
 
         {/* Desktop Navigation Links (Pill bar) */}
-        <div className="hidden lg:flex items-center gap-1 bg-card/70 border border-border/80 rounded-full px-4 py-1.5 backdrop-blur-xs">
+        <div className="hidden lg:flex items-center gap-0.5 bg-card/85 border border-border/80 rounded-full px-1.5 py-1 backdrop-blur-md shadow-xs">
           {navLinks.map((link) => (
             <a
               key={link.href}
               href={link.href}
-              className="text-xs font-medium text-muted-foreground hover:text-foreground hover:bg-muted/70 px-3 py-1.5 rounded-full transition-all duration-150 flex items-center gap-1"
+              className="text-[11px] font-medium text-muted-foreground hover:text-foreground hover:bg-muted/80 px-2.5 py-1 rounded-full transition-all duration-150 flex items-center gap-1"
             >
               {link.label[lang]}
               {link.count && (
-                <span className="text-[10px] bg-primary/15 text-primary px-1.5 py-0.2 rounded-full font-bold">
+                <span className="text-[9px] leading-none bg-primary/15 text-primary px-1.5 py-0.5 rounded-full font-bold">
                   {link.count}
                 </span>
               )}

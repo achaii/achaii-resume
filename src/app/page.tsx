@@ -14,8 +14,8 @@ import PrintResume from "@/components/PrintResume";
 export default function Home() {
   return (
     <LanguageProvider>
-      {/* Interactive Web Page with Rulers Layout per DESIGN.md */}
-      <div className="print:hidden relative flex min-w-0 flex-col after:pointer-events-none after:absolute after:inset-y-0 after:left-0 after:right-0 after:z-40 after:mx-auto after:w-full after:max-w-[calc(72rem-2rem)] after:border-x after:border-black/10 after:content-[''] dark:after:border-white/10 [&>*]:border-b [&>*]:border-black/10 dark:[&>*]:border-white/10">
+      {/* Interactive Web Page Layout */}
+      <div className="print:hidden relative flex min-w-0 flex-col [&>*]:border-b [&>*]:border-border/60">
         <Navbar />
         <main className="flex-1">
           <Hero />
