@@ -53,34 +53,30 @@ export default function ThreeBackground({ interactive = true }: ThreeBackgroundP
       document.documentElement.classList.contains("dark") ||
       document.documentElement.getAttribute("data-theme") === "dark";
 
-    // 2. Google Antigravity Chromatic Color Palette
-    const palette = [
-      new THREE.Color("#4338ca"), // Deep Indigo
+    // 2. Refined, Minimalist Google Antigravity Chromatic Palette
+    const chromaticPalette = [
+      new THREE.Color("#4f46e5"), // Indigo
       new THREE.Color("#3b82f6"), // Blue
-      new THREE.Color("#6366f1"), // Indigo Violet
-      new THREE.Color("#8b5cf6"), // Purple
+      new THREE.Color("#8b5cf6"), // Violet
       new THREE.Color("#ec4899"), // Pink / Magenta
-      new THREE.Color("#e91100"), // Crimson Red (Brand accent)
-      new THREE.Color("#f97316"), // Vibrant Orange
+      new THREE.Color("#e91100"), // Brand Crimson Red
+      new THREE.Color("#f97316"), // Warm Orange
       new THREE.Color("#f59e0b"), // Amber Gold
-      new THREE.Color("#06b6d4"), // Cyan / Teal
+      new THREE.Color("#06b6d4"), // Cyan
     ];
 
-    const getNeutralColor = (dark: boolean) => {
-      // In light mode: soft slate ink; In dark mode: glowing soft stardust
-      return dark ? new THREE.Color("#94a3b8") : new THREE.Color("#64748b");
-    };
+    const getMutedColor = (dark: boolean) =>
+      dark ? new THREE.Color("#64748b") : new THREE.Color("#94a3b8");
 
-    // 3. Antigravity Particle Stream Field
-    // Each particle is an oriented dash / capsule tick mark
-    const particleCount = 2200;
-    const dashGeometry = new THREE.PlaneGeometry(0.08, 0.44);
-    // Center alignment
+    // 3. Simple & Elegant Particle Stream Field (~420 particles total)
+    // Clean, airy, framing the hero without cluttering text
+    const particleCount = 420;
+    const dashGeometry = new THREE.PlaneGeometry(0.065, 0.34);
     dashGeometry.center();
 
     const dashMaterial = new THREE.MeshBasicMaterial({
       transparent: true,
-      opacity: isDark() ? 0.88 : 0.72,
+      opacity: isDark() ? 0.78 : 0.6,
       side: THREE.DoubleSide,
       depthWrite: false,
     });
@@ -91,86 +87,60 @@ export default function ThreeBackground({ interactive = true }: ThreeBackgroundP
       particleCount
     );
 
-    // Particle state arrays
-    const basePositions: Array<{
-      r: number;
-      theta: number;
-      z: number;
+    interface StreamParticle {
+      streamIndex: number;
+      progress: number;
       speed: number;
+      lateralOffset: number;
+      z: number;
       phase: number;
-      isLeftVortex: boolean;
       color: THREE.Color;
-    }> = [];
+      scale: number;
+    }
 
-    // Vortex center: left-shifted on desktop like Antigravity layout
-    const getVortexCenter = () => {
-      const isMobile = window.innerWidth < 768;
-      return {
-        x: isMobile ? 0 : -6.5,
-        y: isMobile ? 2.5 : 1.2,
-      };
-    };
+    const particles: StreamParticle[] = [];
 
-    let vortexCenter = getVortexCenter();
-
-    const goldenAngle = 2.39996323; // ~137.5 degrees in radians
+    // Streamline path parameters: sweeping arc framing the upper-left and outer perimeter
+    const streamArcs = [
+      { radius: 11, startAngle: -2.4, endAngle: 0.8, yOffset: 1.0, xOffset: -4.5 },
+      { radius: 15, startAngle: -2.2, endAngle: 1.1, yOffset: 1.2, xOffset: -4.0 },
+      { radius: 19, startAngle: -2.0, endAngle: 1.3, yOffset: 1.5, xOffset: -3.5 },
+      { radius: 24, startAngle: -1.8, endAngle: 1.5, yOffset: 1.8, xOffset: -3.0 },
+    ];
 
     for (let i = 0; i < particleCount; i++) {
-      // 65% in the main chromatic vortex, 35% in outer disperse drift
-      const isLeftVortex = i < particleCount * 0.7;
+      const streamIndex = i % streamArcs.length;
+      const progress = Math.random();
+      const speed = 0.025 + Math.random() * 0.035;
+      const lateralOffset = (Math.random() - 0.5) * 1.8;
+      const z = (Math.random() - 0.5) * 4.0;
+      const phase = Math.random() * Math.PI * 2;
 
-      let r: number;
-      let theta: number;
-      let z: number;
-      let particleColor: THREE.Color;
-
-      if (isLeftVortex) {
-        // Spiral phyllotaxis disk radiating outwards
-        const progress = i / (particleCount * 0.7);
-        r = Math.pow(progress, 0.55) * 16.5 + 1.2;
-        theta = i * goldenAngle;
-        z = (Math.random() - 0.5) * 3.5;
-
-        // Chromatic palette based on spiral angle & radius
-        const normalizedAngle = (theta % (Math.PI * 2)) / (Math.PI * 2);
-        const paletteIdx = Math.floor(normalizedAngle * palette.length);
-        const nextIdx = (paletteIdx + 1) % palette.length;
-        const blend = (normalizedAngle * palette.length) % 1;
-
-        particleColor = palette[paletteIdx].clone().lerp(palette[nextIdx], blend);
-
-        // Mix in subtle random variation
-        if (Math.random() > 0.8) {
-          particleColor.lerp(new THREE.Color("#e91100"), 0.3);
-        }
+      // Color mapping: chromatic flow along stream progress
+      let color: THREE.Color;
+      if (Math.random() > 0.2) {
+        const colorIdx = Math.floor(progress * chromaticPalette.length);
+        const nextColorIdx = (colorIdx + 1) % chromaticPalette.length;
+        const blend = (progress * chromaticPalette.length) % 1;
+        color = chromaticPalette[colorIdx].clone().lerp(chromaticPalette[nextColorIdx], blend);
       } else {
-        // Disperse drift across the right side and outer space
-        const j = i - particleCount * 0.7;
-        const totalRight = particleCount * 0.3;
-        r = Math.sqrt(j / totalRight) * 26 + 6;
-        theta = j * goldenAngle * 1.5;
-        z = (Math.random() - 0.5) * 6;
-
-        // Mostly neutral slate with occasional colorful sparks
-        if (Math.random() > 0.35) {
-          particleColor = getNeutralColor(isDark());
-        } else {
-          const randColor = palette[Math.floor(Math.random() * palette.length)];
-          particleColor = randColor.clone();
-        }
+        color = getMutedColor(isDark());
       }
 
-      basePositions.push({
-        r,
-        theta,
+      const scale = 0.7 + Math.random() * 0.45;
+
+      particles.push({
+        streamIndex,
+        progress,
+        speed,
+        lateralOffset,
         z,
-        speed: 0.12 + Math.random() * 0.18,
-        phase: Math.random() * Math.PI * 2,
-        isLeftVortex,
-        color: particleColor,
+        phase,
+        color,
+        scale,
       });
 
-      instancedMesh.setColorAt(i, particleColor);
+      instancedMesh.setColorAt(i, color);
     }
 
     if (instancedMesh.instanceColor) {
@@ -179,14 +149,13 @@ export default function ThreeBackground({ interactive = true }: ThreeBackgroundP
 
     scene.add(instancedMesh);
 
-    // 4. Mouse / Anti-Gravity Force Field & Scroll State
+    // 4. Mouse / Interactive Anti-Gravity Fluid Wake
     const mouse3D = new THREE.Vector3(9999, 9999, 0);
     const targetMouse3D = new THREE.Vector3(9999, 9999, 0);
     let scrollY = 0;
     let targetScrollY = 0;
     let isVisible = true;
 
-    // Raycaster to project mouse onto 3D plane z = 0
     const raycaster = new THREE.Raycaster();
     const mouseCoord = new THREE.Vector2(-9999, -9999);
     const planeZ = new THREE.Plane(new THREE.Vector3(0, 0, 1), 0);
@@ -214,7 +183,7 @@ export default function ThreeBackground({ interactive = true }: ThreeBackgroundP
     window.addEventListener("mouseleave", handleMouseLeave);
     window.addEventListener("scroll", handleScroll, { passive: true });
 
-    // Performance: Pause animation when off-screen
+    // Performance: Pause loop when off-screen
     const observer = new IntersectionObserver(
       ([entry]) => {
         isVisible = entry.isIntersecting;
@@ -223,7 +192,7 @@ export default function ThreeBackground({ interactive = true }: ThreeBackgroundP
     );
     observer.observe(container);
 
-    // Handle Resize
+    // Resize handling
     const handleResize = () => {
       if (!container) return;
       width = container.clientWidth || window.innerWidth;
@@ -232,8 +201,6 @@ export default function ThreeBackground({ interactive = true }: ThreeBackgroundP
       camera.updateProjectionMatrix();
       renderer.setSize(width, height);
       renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
-
-      vortexCenter = getVortexCenter();
     };
 
     window.addEventListener("resize", handleResize);
@@ -241,18 +208,7 @@ export default function ThreeBackground({ interactive = true }: ThreeBackgroundP
     // Theme Switch Observer
     const themeObserver = new MutationObserver(() => {
       const dark = isDark();
-      dashMaterial.opacity = dark ? 0.88 : 0.72;
-
-      // Update neutral colors
-      for (let i = 0; i < particleCount; i++) {
-        const p = basePositions[i];
-        if (!p.isLeftVortex) {
-          instancedMesh.setColorAt(i, p.color);
-        }
-      }
-      if (instancedMesh.instanceColor) {
-        instancedMesh.instanceColor.needsUpdate = true;
-      }
+      dashMaterial.opacity = dark ? 0.78 : 0.6;
     });
 
     themeObserver.observe(document.documentElement, {
@@ -260,7 +216,7 @@ export default function ThreeBackground({ interactive = true }: ThreeBackgroundP
       attributeFilter: ["class", "data-theme"],
     });
 
-    // 5. Animation Loop: Fluid Vortex & Anti-Gravity Physics
+    // 5. Hypnotic, Tranquil Animation Loop
     const dummy = new THREE.Object3D();
     let animationFrameId: number;
     let clock = new THREE.Clock();
@@ -270,77 +226,82 @@ export default function ThreeBackground({ interactive = true }: ThreeBackgroundP
 
       if (!isVisible) return;
 
+      const delta = clock.getDelta();
       const elapsedTime = clock.getElapsedTime();
 
-      // Smooth mouse lerp
-      mouse3D.lerp(targetMouse3D, 0.08);
+      // Smooth mouse lerp with soft inertia
+      mouse3D.lerp(targetMouse3D, 0.06);
 
       // Smooth scroll lerp
-      scrollY += (targetScrollY - scrollY) * 0.06;
-      const scrollOffset = scrollY * 0.003;
+      scrollY += (targetScrollY - scrollY) * 0.05;
+      const scrollDrift = scrollY * 0.0015;
 
-      // Subtle parallax camera motion
+      // Gentle camera parallax following mouse
       if (mouse3D.x < 1000) {
-        camera.position.x += (mouse3D.x * 0.12 - camera.position.x) * 0.04;
-        camera.position.y += (mouse3D.y * 0.12 - camera.position.y) * 0.04;
+        camera.position.x += (mouse3D.x * 0.08 - camera.position.x) * 0.03;
+        camera.position.y += (mouse3D.y * 0.08 - camera.position.y) * 0.03;
       } else {
-        camera.position.x += (0 - camera.position.x) * 0.04;
-        camera.position.y += (0 - camera.position.y) * 0.04;
+        camera.position.x += (0 - camera.position.x) * 0.03;
+        camera.position.y += (0 - camera.position.y) * 0.03;
       }
       camera.lookAt(0, 0, 0);
 
-      // Update particle positions
+      // Update streamlined particles
       for (let i = 0; i < particleCount; i++) {
-        const p = basePositions[i];
+        const p = particles[i];
+        const stream = streamArcs[p.streamIndex];
 
-        // 1. Base vortex orbit
-        const currentTheta =
-          p.theta +
-          elapsedTime * p.speed * 0.15 +
-          scrollOffset * 0.5 +
-          (p.isLeftVortex ? 0 : Math.sin(elapsedTime * 0.2 + p.phase) * 0.1);
+        // Advance along streamline (infinite loop with smooth wrap)
+        p.progress = (p.progress + delta * p.speed + scrollDrift * 0.02) % 1.0;
 
-        // Breathing radius pulsation
-        const breathing = Math.sin(elapsedTime * 0.8 + p.phase) * 0.35;
-        const currentR = p.r + breathing;
+        // Angle along arc
+        const currentAngle =
+          stream.startAngle + p.progress * (stream.endAngle - stream.startAngle);
 
-        // Position relative to vortex center
-        let x = vortexCenter.x + Math.cos(currentTheta) * currentR;
-        let y = vortexCenter.y + Math.sin(currentTheta) * currentR;
-        let z = p.z + Math.cos(elapsedTime * 0.5 + p.phase) * 0.4;
+        // Radius with breathing harmonics and lateral offset
+        const r =
+          stream.radius +
+          p.lateralOffset +
+          Math.sin(elapsedTime * 0.6 + p.phase) * 0.35;
 
-        // Tangent streamline flow angle
-        // Dash points along the outward curved spiral
-        let angle = currentTheta + Math.PI / 2 + 0.18;
+        // Base coordinates along arc
+        let x = stream.xOffset + Math.cos(currentAngle) * r;
+        let y = stream.yOffset + Math.sin(currentAngle) * (r * 0.65);
+        let z = p.z + Math.cos(elapsedTime * 0.4 + p.phase) * 0.3;
 
-        // 2. Interactive "Anti-Gravity" Force Field
+        // Streamline orientation: dash points tangent to the flowing curve
+        let angle = currentAngle + Math.PI / 2 + 0.12;
+
+        // Smooth fade in and out at stream edges
+        let edgeAlpha = 1.0;
+        if (p.progress < 0.1) {
+          edgeAlpha = p.progress / 0.1;
+        } else if (p.progress > 0.9) {
+          edgeAlpha = (1.0 - p.progress) / 0.1;
+        }
+
+        // Interactive Anti-Gravity Mouse Wake (Gentle fluid deflection)
         if (mouse3D.x < 1000) {
           const dx = x - mouse3D.x;
           const dy = y - mouse3D.y;
           const distSq = dx * dx + dy * dy;
-          const interactionRadius = 5.8;
+          const interactionRadius = 5.2;
 
           if (distSq < interactionRadius * interactionRadius && distSq > 0.01) {
             const dist = Math.sqrt(distSq);
-            const force = (1 - dist / interactionRadius) * 1.6;
+            const force = Math.pow(1 - dist / interactionRadius, 1.8) * 1.3;
 
-            // Repulsion push + swirl vortex around cursor
             const pushAngle = Math.atan2(dy, dx);
-            const swirlAngle = pushAngle + Math.PI / 2;
+            x += Math.cos(pushAngle) * force;
+            y += Math.sin(pushAngle) * force;
+            z += force * 1.2;
 
-            x += Math.cos(pushAngle) * force * 1.1 + Math.cos(swirlAngle) * force * 0.7;
-            y += Math.sin(pushAngle) * force * 1.1 + Math.sin(swirlAngle) * force * 0.7;
-            z += force * 1.5;
-
-            // Align dash with the magnetic swirl flow
-            angle = swirlAngle + Math.sin(elapsedTime * 3 + dist) * 0.4;
+            // Tilt with fluid velocity
+            angle += Math.sin(elapsedTime * 2 + dist) * force * 0.6;
           }
         }
 
-        // Apply scale: larger near the vibrant vortex center, tapering smoothly outwards
-        const scale = p.isLeftVortex
-          ? THREE.MathUtils.clamp(1.1 - p.r / 22, 0.45, 1.25)
-          : THREE.MathUtils.clamp(0.8 - p.r / 35, 0.35, 0.85);
+        const scale = p.scale * edgeAlpha;
 
         dummy.position.set(x, y, z);
         dummy.rotation.z = angle;
