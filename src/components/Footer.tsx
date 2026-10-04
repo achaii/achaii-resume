@@ -1,16 +1,11 @@
 "use client";
 
 import Image from "next/image";
-import { ArrowUp } from "lucide-react";
 import { resumeData } from "@/data/resumeData";
 import { useLanguage } from "@/context/LanguageContext";
 
 export default function Footer() {
   const { lang } = useLanguage();
-
-  const scrollToTop = () => {
-    window.scrollTo({ top: 0, behavior: "smooth" });
-  };
 
   return (
     <footer className="py-12 bg-background border-t border-border no-print">
@@ -54,15 +49,6 @@ export default function Footer() {
               {lang === "en" ? "Contact" : "Kontak"}
             </a>
           </div>
-
-          <button
-            onClick={scrollToTop}
-            aria-label="Back to top"
-            className="size-9 rounded-full border border-border bg-card hover:bg-muted text-foreground flex items-center justify-center transition-all shadow-xs"
-            title={lang === "en" ? "Back to top" : "Kembali ke atas"}
-          >
-            <ArrowUp className="size-4" />
-          </button>
         </div>
 
         <div className="pt-6 flex flex-col sm:flex-row items-center justify-between gap-3 text-xs text-muted-foreground font-mono">

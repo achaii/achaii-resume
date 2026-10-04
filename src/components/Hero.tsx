@@ -48,7 +48,7 @@ export default function Hero() {
       <div className="absolute top-10 left-1/2 -translate-x-1/2 w-[600px] h-[350px] bg-primary/5 dark:bg-primary/10 blur-[120px] rounded-full pointer-events-none -z-10" />
 
       <div className="max-w-5xl mx-auto px-4 sm:px-6">
-        {/* Availability & 3D WebGL Badges */}
+        {/* Availability Badge */}
         <div className="flex items-center gap-2.5 flex-wrap mb-6">
           <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full border border-emerald-500/30 bg-emerald-500/10 text-emerald-700 dark:text-emerald-400 text-xs font-medium animate-in fade-in duration-500">
             <span className="relative flex h-2 w-2">
@@ -56,11 +56,6 @@ export default function Hero() {
               <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-500"></span>
             </span>
             <span>{resumeData.personal.availability[lang]}</span>
-          </div>
-
-          <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full border border-primary/30 bg-primary/10 text-primary text-xs font-mono font-medium shadow-2xs backdrop-blur-xs">
-            <span className="size-1.5 rounded-full bg-primary animate-pulse" />
-            <span>Interactive Antigravity 3D Field</span>
           </div>
         </div>
 
