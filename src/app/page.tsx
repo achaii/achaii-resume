@@ -10,10 +10,14 @@ import EducationCertSection from "@/components/EducationCertSection";
 import ContactSection from "@/components/ContactSection";
 import Footer from "@/components/Footer";
 import PrintResume from "@/components/PrintResume";
+import ScrollManager from "@/components/ScrollManager";
 
 export default function Home() {
   return (
     <LanguageProvider>
+      {/* Smooth Scroll Progress & Back to Top Manager */}
+      <ScrollManager />
+
       {/* Interactive Web Page Layout */}
       <div className="print:hidden relative flex min-w-0 flex-col [&>*]:border-b [&>*]:border-border/60">
         <Navbar />

@@ -12,7 +12,7 @@ export default function EducationCertSection() {
       {/* Education Section */}
       <section id="pendidikan" className="py-16 sm:py-20 border-b border-border/70">
         <div className="max-w-5xl mx-auto px-4 sm:px-6">
-          <div className="mb-10">
+          <div className="mb-10 scroll-reveal">
             <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-primary/10 text-primary text-xs font-semibold mb-3 border border-primary/20">
               <GraduationCap className="size-3.5" />
               <span>{lang === "en" ? "Academic Credentials" : "Akademik"}</span>
@@ -31,7 +31,7 @@ export default function EducationCertSection() {
             {resumeData.education.map((edu, idx) => (
               <div
                 key={idx}
-                className="p-6 rounded-3xl border border-border bg-card shadow-xs hover:border-primary/40 transition-colors flex flex-col justify-between"
+                className="p-6 rounded-3xl border border-border bg-card shadow-xs hover:border-primary/40 transition-colors flex flex-col justify-between scroll-reveal"
               >
                 <div>
                   <div className="flex items-center justify-between gap-2 mb-3">
@@ -66,7 +66,7 @@ export default function EducationCertSection() {
       {/* Certifications Section - Spacious Full-Width Grid (No Cramped Scrollbars!) */}
       <section id="sertifikasi" className="py-16 sm:py-20 border-b border-border/70">
         <div className="max-w-6xl mx-auto px-4 sm:px-6">
-          <div className="flex flex-col md:flex-row md:items-end justify-between gap-4 mb-10">
+          <div className="flex flex-col md:flex-row md:items-end justify-between gap-4 mb-10 scroll-reveal">
             <div>
               <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-primary/10 text-primary text-xs font-semibold mb-3 border border-primary/20">
                 <Award className="size-3.5" />
@@ -92,7 +92,7 @@ export default function EducationCertSection() {
             {resumeData.certificates.map((cert, index) => (
               <div
                 key={index}
-                className="p-5 rounded-3xl border border-border bg-card shadow-xs hover:border-primary/50 hover:shadow-md transition-all duration-200 flex flex-col justify-between group"
+                className="p-5 rounded-3xl border border-border bg-card shadow-xs hover:border-primary/50 hover:shadow-md transition-all duration-200 flex flex-col justify-between group scroll-reveal"
               >
                 <div>
                   <div className="flex items-center justify-between gap-2 mb-3">

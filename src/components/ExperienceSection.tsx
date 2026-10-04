@@ -11,7 +11,7 @@ export default function ExperienceSection() {
     <section id="pengalaman" className="py-16 sm:py-20 border-b border-border/70">
       <div className="max-w-5xl mx-auto px-4 sm:px-6">
         {/* Section Header */}
-        <div className="mb-12">
+        <div className="mb-12 scroll-reveal">
           <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-primary/10 text-primary text-xs font-semibold mb-3 border border-primary/20">
             <Briefcase className="size-3.5" />
             <span>
@@ -37,7 +37,7 @@ export default function ExperienceSection() {
             const isLast = idx === resumeData.experiences.length - 1;
 
             return (
-              <div key={exp.id} className="flex gap-4 sm:gap-6 items-start group">
+              <div key={exp.id} className="flex gap-4 sm:gap-6 items-start group scroll-reveal">
                 {/* Timeline Axis Column: Circle and Vertical Line both centered on same axis */}
                 <div className="flex flex-col items-center self-stretch shrink-0 pt-1">
                   {/* Circle Node: Perfectly on the timeline axis, outside the card */}

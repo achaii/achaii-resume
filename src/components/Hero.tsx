@@ -17,6 +17,7 @@ import {
 import { GithubIcon, LinkedinIcon, InstagramIcon } from "@/components/Icons";
 import { resumeData } from "@/data/resumeData";
 import { useLanguage } from "@/context/LanguageContext";
+import ThreeBackground from "@/components/ThreeBackground";
 
 export default function Hero() {
   const { lang } = useLanguage();
@@ -37,17 +38,27 @@ export default function Hero() {
       id="hero"
       className="pt-28 pb-16 sm:pt-36 sm:pb-20 border-b border-border/70 relative overflow-hidden"
     >
+      {/* Interactive 3D Three.js Neural Core & Particle Galaxy System */}
+      <ThreeBackground interactive={true} />
+
       {/* Decorative ambient glow */}
       <div className="absolute top-10 left-1/2 -translate-x-1/2 w-[600px] h-[350px] bg-primary/5 dark:bg-primary/10 blur-[120px] rounded-full pointer-events-none -z-10" />
 
       <div className="max-w-5xl mx-auto px-4 sm:px-6">
-        {/* Availability Badge */}
-        <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full border border-emerald-500/30 bg-emerald-500/10 text-emerald-700 dark:text-emerald-400 text-xs font-medium mb-6 animate-in fade-in duration-500">
-          <span className="relative flex h-2 w-2">
-            <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
-            <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-500"></span>
-          </span>
-          <span>{resumeData.personal.availability[lang]}</span>
+        {/* Availability & 3D WebGL Badges */}
+        <div className="flex items-center gap-2.5 flex-wrap mb-6">
+          <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full border border-emerald-500/30 bg-emerald-500/10 text-emerald-700 dark:text-emerald-400 text-xs font-medium animate-in fade-in duration-500">
+            <span className="relative flex h-2 w-2">
+              <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
+              <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-500"></span>
+            </span>
+            <span>{resumeData.personal.availability[lang]}</span>
+          </div>
+
+          <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full border border-primary/30 bg-primary/10 text-primary text-xs font-mono font-medium shadow-2xs backdrop-blur-xs">
+            <span className="size-1.5 rounded-full bg-primary animate-pulse" />
+            <span>Interactive Three.js 3D Neural Space</span>
+          </div>
         </div>
 
         {/* Tagline */}

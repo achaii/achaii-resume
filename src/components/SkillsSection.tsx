@@ -19,7 +19,7 @@ export default function SkillsSection() {
     <section id="keahlian" className="py-16 sm:py-20 border-b border-border/70">
       <div className="max-w-5xl mx-auto px-4 sm:px-6">
         {/* Section Header */}
-        <div className="mb-12">
+        <div className="mb-12 scroll-reveal">
           <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-primary/10 text-primary text-xs font-semibold mb-3 border border-primary/20">
             <Code className="size-3.5" />
             <span>
@@ -39,7 +39,7 @@ export default function SkillsSection() {
         {/* Skills Grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
           {/* AI Engineering & LLMs */}
-          <div className="p-6 rounded-3xl border border-primary/30 bg-primary/5 shadow-xs hover:border-primary/50 transition-colors">
+          <div className="p-6 rounded-3xl border border-primary/30 bg-primary/5 shadow-xs hover:border-primary/50 transition-colors scroll-reveal">
             <div className="flex items-center gap-2.5 mb-4">
               <div className="size-8 rounded-xl bg-primary/20 flex items-center justify-center text-primary">
                 <Bot className="size-4" />
@@ -61,7 +61,7 @@ export default function SkillsSection() {
           </div>
 
           {/* Programming Languages */}
-          <div className="p-6 rounded-3xl border border-border bg-card shadow-xs hover:border-primary/40 transition-colors">
+          <div className="p-6 rounded-3xl border border-border bg-card shadow-xs hover:border-primary/40 transition-colors scroll-reveal">
             <div className="flex items-center gap-2.5 mb-4">
               <div className="size-8 rounded-xl bg-primary/10 flex items-center justify-center text-primary">
                 <Code className="size-4" />
@@ -92,7 +92,7 @@ export default function SkillsSection() {
           </div>
 
           {/* Backend Frameworks */}
-          <div className="p-6 rounded-3xl border border-border bg-card shadow-xs hover:border-primary/40 transition-colors">
+          <div className="p-6 rounded-3xl border border-border bg-card shadow-xs hover:border-primary/40 transition-colors scroll-reveal">
             <div className="flex items-center gap-2.5 mb-4">
               <div className="size-8 rounded-xl bg-primary/10 flex items-center justify-center text-primary">
                 <Server className="size-4" />
@@ -114,7 +114,7 @@ export default function SkillsSection() {
           </div>
 
           {/* Frontend Frameworks & Libraries */}
-          <div className="p-6 rounded-3xl border border-border bg-card shadow-xs hover:border-primary/40 transition-colors">
+          <div className="p-6 rounded-3xl border border-border bg-card shadow-xs hover:border-primary/40 transition-colors scroll-reveal">
             <div className="flex items-center gap-2.5 mb-4">
               <div className="size-8 rounded-xl bg-primary/10 flex items-center justify-center text-primary">
                 <Layers className="size-4" />
@@ -136,7 +136,7 @@ export default function SkillsSection() {
           </div>
 
           {/* Databases & Storage */}
-          <div className="p-6 rounded-3xl border border-border bg-card shadow-xs hover:border-primary/40 transition-colors">
+          <div className="p-6 rounded-3xl border border-border bg-card shadow-xs hover:border-primary/40 transition-colors scroll-reveal">
             <div className="flex items-center gap-2.5 mb-4">
               <div className="size-8 rounded-xl bg-primary/10 flex items-center justify-center text-primary">
                 <Database className="size-4" />
@@ -158,7 +158,7 @@ export default function SkillsSection() {
           </div>
 
           {/* Mobile & Hardware Integration */}
-          <div className="p-6 rounded-3xl border border-border bg-card shadow-xs hover:border-primary/40 transition-colors">
+          <div className="p-6 rounded-3xl border border-border bg-card shadow-xs hover:border-primary/40 transition-colors scroll-reveal">
             <div className="flex items-center gap-2.5 mb-4">
               <div className="size-8 rounded-xl bg-primary/10 flex items-center justify-center text-primary">
                 <Smartphone className="size-4" />
@@ -180,7 +180,7 @@ export default function SkillsSection() {
           </div>
 
           {/* Analysis, Project & Documentation */}
-          <div className="p-6 rounded-3xl border border-border bg-card shadow-xs hover:border-primary/40 transition-colors">
+          <div className="p-6 rounded-3xl border border-border bg-card shadow-xs hover:border-primary/40 transition-colors scroll-reveal">
             <div className="flex items-center gap-2.5 mb-4">
               <div className="size-8 rounded-xl bg-primary/10 flex items-center justify-center text-primary">
                 <FileSpreadsheet className="size-4" />

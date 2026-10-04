@@ -70,7 +70,7 @@ export default function ContactSection() {
     <section id="kontak" className="py-16 sm:py-20 border-b border-border/70">
       <div className="max-w-5xl mx-auto px-4 sm:px-6">
         {/* Section Header */}
-        <div className="mb-12">
+        <div className="mb-12 scroll-reveal">
           <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-primary/10 text-primary text-xs font-semibold mb-3 border border-primary/20">
             <MessageSquare className="size-3.5" />
             <span>{lang === "en" ? "Get In Touch" : "Koneksi & Diskusi"}</span>
@@ -87,7 +87,7 @@ export default function ContactSection() {
 
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8">
           {/* Left Column: Direct Communication Channels (5 cols) */}
-          <div className="lg:col-span-5 space-y-4">
+          <div className="lg:col-span-5 space-y-4 scroll-reveal">
             {/* WhatsApp / Phone Card */}
             <div className="p-5 rounded-3xl border border-border bg-card shadow-xs">
               <div className="flex items-center justify-between gap-2 mb-2">
@@ -192,7 +192,7 @@ export default function ContactSection() {
           </div>
 
           {/* Right Column: Interactive Quick Message Composer (7 cols) */}
-          <div className="lg:col-span-7 p-6 sm:p-7 rounded-3xl border border-border bg-card shadow-xs">
+          <div className="lg:col-span-7 p-6 sm:p-7 rounded-3xl border border-border bg-card shadow-xs scroll-reveal">
             <h3 className="font-heading text-xl font-bold text-foreground mb-1">
               {lang === "en" ? "Send a Quick Message" : "Kirim Pesan Cepat"}
             </h3>

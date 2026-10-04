@@ -69,7 +69,7 @@ export default function ProjectsSection() {
     <section id="portofolio" className="py-16 sm:py-20 border-b border-border/70">
       <div className="max-w-6xl mx-auto px-4 sm:px-6">
         {/* Section Title */}
-        <div className="flex flex-col md:flex-row md:items-end justify-between gap-4 mb-8">
+        <div className="flex flex-col md:flex-row md:items-end justify-between gap-4 mb-8 scroll-reveal">
           <div>
             <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-primary/10 text-primary text-xs font-semibold mb-3 border border-primary/20">
               <FolderGit2 className="size-3.5" />
@@ -187,7 +187,7 @@ export default function ProjectsSection() {
             {filteredProjects.map((project) => (
               <article
                 key={project.id}
-                className="group flex flex-col justify-between p-6 rounded-3xl border border-border bg-card hover:border-primary/50 hover:shadow-md transition-all duration-200"
+                className="group flex flex-col justify-between p-6 rounded-3xl border border-border bg-card hover:border-primary/50 hover:shadow-md transition-all duration-200 scroll-reveal"
               >
                 <div>
                   {/* Card Meta: Period & Institution */}
