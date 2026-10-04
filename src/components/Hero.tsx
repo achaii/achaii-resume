@@ -38,8 +38,11 @@ export default function Hero() {
       id="hero"
       className="pt-28 pb-16 sm:pt-36 sm:pb-20 border-b border-border/70 relative overflow-hidden"
     >
-      {/* Interactive 3D Three.js Neural Core & Particle Galaxy System */}
+      {/* Interactive 3D Three.js Antigravity Particle Field */}
       <ThreeBackground interactive={true} />
+
+      {/* Subtle radial backdrop mask for crystal-clear typography readability */}
+      <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_35%_45%,var(--color-background)_25%,transparent_85%)] opacity-70 pointer-events-none -z-5" />
 
       {/* Decorative ambient glow */}
       <div className="absolute top-10 left-1/2 -translate-x-1/2 w-[600px] h-[350px] bg-primary/5 dark:bg-primary/10 blur-[120px] rounded-full pointer-events-none -z-10" />
@@ -57,7 +60,7 @@ export default function Hero() {
 
           <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full border border-primary/30 bg-primary/10 text-primary text-xs font-mono font-medium shadow-2xs backdrop-blur-xs">
             <span className="size-1.5 rounded-full bg-primary animate-pulse" />
-            <span>Interactive Three.js 3D Neural Space</span>
+            <span>Interactive Antigravity 3D Field</span>
           </div>
         </div>
 

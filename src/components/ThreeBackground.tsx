@@ -30,14 +30,14 @@ export default function ThreeBackground({ interactive = true }: ThreeBackgroundP
       return;
     }
 
-    // 1. Scene setup
+    // 1. Scene & Camera Setup
     const scene = new THREE.Scene();
 
-    const width = container.clientWidth || window.innerWidth;
-    const height = container.clientHeight || 600;
+    let width = container.clientWidth || window.innerWidth;
+    let height = container.clientHeight || 700;
 
-    const camera = new THREE.PerspectiveCamera(50, width / height, 0.1, 1000);
-    camera.position.z = 24;
+    const camera = new THREE.PerspectiveCamera(45, width / height, 0.1, 1000);
+    camera.position.set(0, 0, 26);
 
     const renderer = new THREE.WebGLRenderer({
       alpha: true,
@@ -49,153 +49,161 @@ export default function ThreeBackground({ interactive = true }: ThreeBackgroundP
     renderer.setClearColor(0x000000, 0);
     container.appendChild(renderer.domElement);
 
-    // Detect theme for adaptive color grading
     const isDark = () =>
       document.documentElement.classList.contains("dark") ||
       document.documentElement.getAttribute("data-theme") === "dark";
 
-    const getPrimaryColor = () => {
-      // Brand Red (#e91100 in hex is 0xe91100)
-      return isDark() ? 0xe91100 : 0xdc2626;
+    // 2. Google Antigravity Chromatic Color Palette
+    const palette = [
+      new THREE.Color("#4338ca"), // Deep Indigo
+      new THREE.Color("#3b82f6"), // Blue
+      new THREE.Color("#6366f1"), // Indigo Violet
+      new THREE.Color("#8b5cf6"), // Purple
+      new THREE.Color("#ec4899"), // Pink / Magenta
+      new THREE.Color("#e91100"), // Crimson Red (Brand accent)
+      new THREE.Color("#f97316"), // Vibrant Orange
+      new THREE.Color("#f59e0b"), // Amber Gold
+      new THREE.Color("#06b6d4"), // Cyan / Teal
+    ];
+
+    const getNeutralColor = (dark: boolean) => {
+      // In light mode: soft slate ink; In dark mode: glowing soft stardust
+      return dark ? new THREE.Color("#94a3b8") : new THREE.Color("#64748b");
     };
 
-    const getSecondaryColor = () => {
-      return isDark() ? 0xff4d36 : 0xef4444;
-    };
+    // 3. Antigravity Particle Stream Field
+    // Each particle is an oriented dash / capsule tick mark
+    const particleCount = 2200;
+    const dashGeometry = new THREE.PlaneGeometry(0.08, 0.44);
+    // Center alignment
+    dashGeometry.center();
 
-    // 2. 3D Elements
-    // Group container for smooth mouse tilt
-    const mainGroup = new THREE.Group();
-    scene.add(mainGroup);
-
-    // Core Wireframe: Nested 3D Geodesic / Icosahedron
-    const coreGeometry = new THREE.IcosahedronGeometry(4.2, 1);
-    const coreMaterial = new THREE.MeshBasicMaterial({
-      color: getPrimaryColor(),
-      wireframe: true,
+    const dashMaterial = new THREE.MeshBasicMaterial({
       transparent: true,
-      opacity: isDark() ? 0.35 : 0.16,
-    });
-    const coreMesh = new THREE.Mesh(coreGeometry, coreMaterial);
-    mainGroup.add(coreMesh);
-
-    // Inner Core: Floating Octahedron
-    const innerGeometry = new THREE.OctahedronGeometry(2.2, 0);
-    const innerMaterial = new THREE.MeshBasicMaterial({
-      color: getSecondaryColor(),
-      wireframe: true,
-      transparent: true,
-      opacity: isDark() ? 0.45 : 0.22,
-    });
-    const innerMesh = new THREE.Mesh(innerGeometry, innerMaterial);
-    mainGroup.add(innerMesh);
-
-    // Outer Orbital Ring: Torus Wireframe
-    const ringGeometry = new THREE.TorusGeometry(8.2, 0.05, 8, 54);
-    const ringMaterial = new THREE.MeshBasicMaterial({
-      color: getPrimaryColor(),
-      transparent: true,
-      opacity: isDark() ? 0.35 : 0.14,
-    });
-    const ringMesh = new THREE.Mesh(ringGeometry, ringMaterial);
-    ringMesh.rotation.x = Math.PI / 3;
-    mainGroup.add(ringMesh);
-
-    const ring2Geometry = new THREE.TorusGeometry(9.4, 0.04, 8, 54);
-    const ring2Mesh = new THREE.Mesh(ring2Geometry, ringMaterial);
-    ring2Mesh.rotation.x = -Math.PI / 4;
-    ring2Mesh.rotation.y = Math.PI / 6;
-    mainGroup.add(ring2Mesh);
-
-    // 3. Particle Constellation & Neural Cloud
-    const particleCount = 550;
-    const positions = new Float32Array(particleCount * 3);
-    const originalPositions = new Float32Array(particleCount * 3);
-    const scales = new Float32Array(particleCount);
-
-    // Generate crisp circular particle texture without dark borders
-    const createParticleTexture = () => {
-      const canvas = document.createElement("canvas");
-      canvas.width = 32;
-      canvas.height = 32;
-      const ctx = canvas.getContext("2d");
-      if (ctx) {
-        ctx.clearRect(0, 0, 32, 32);
-        const gradient = ctx.createRadialGradient(16, 16, 0, 16, 16, 16);
-        gradient.addColorStop(0, "rgba(255, 255, 255, 1)");
-        gradient.addColorStop(0.35, "rgba(233, 17, 0, 0.9)");
-        gradient.addColorStop(0.7, "rgba(233, 17, 0, 0.3)");
-        gradient.addColorStop(1, "rgba(233, 17, 0, 0)");
-        ctx.fillStyle = gradient;
-        ctx.beginPath();
-        ctx.arc(16, 16, 16, 0, Math.PI * 2);
-        ctx.fill();
-      }
-      return new THREE.CanvasTexture(canvas);
-    };
-
-    const particleTexture = createParticleTexture();
-
-    for (let i = 0; i < particleCount; i++) {
-      const u = Math.random();
-      const v = Math.random();
-      const theta = u * 2.0 * Math.PI;
-      const phi = Math.acos(2.0 * v - 1.0);
-      const r = Math.cbrt(Math.random()) * 13 + 3.5;
-
-      const x = r * Math.sin(phi) * Math.cos(theta);
-      const y = r * Math.sin(phi) * Math.sin(theta);
-      const z = r * Math.cos(phi);
-
-      positions[i * 3] = x;
-      positions[i * 3 + 1] = y;
-      positions[i * 3 + 2] = z;
-
-      originalPositions[i * 3] = x;
-      originalPositions[i * 3 + 1] = y;
-      originalPositions[i * 3 + 2] = z;
-
-      scales[i] = Math.random() * 0.8 + 0.4;
-    }
-
-    const particlesGeometry = new THREE.BufferGeometry();
-    particlesGeometry.setAttribute(
-      "position",
-      new THREE.BufferAttribute(positions, 3)
-    );
-
-    const particlesMaterial = new THREE.PointsMaterial({
-      size: isDark() ? 0.38 : 0.28,
-      map: particleTexture,
-      transparent: true,
-      opacity: isDark() ? 0.75 : 0.45,
-      blending: isDark() ? THREE.AdditiveBlending : THREE.NormalBlending,
+      opacity: isDark() ? 0.88 : 0.72,
+      side: THREE.DoubleSide,
       depthWrite: false,
     });
 
-    const particleSystem = new THREE.Points(particlesGeometry, particlesMaterial);
-    mainGroup.add(particleSystem);
+    const instancedMesh = new THREE.InstancedMesh(
+      dashGeometry,
+      dashMaterial,
+      particleCount
+    );
 
-    // Responsive positioning: on desktop, shift group slightly right to frame hero text
-    if (width >= 1024) {
-      mainGroup.position.x = 4.5;
-    } else {
-      mainGroup.position.x = 0;
+    // Particle state arrays
+    const basePositions: Array<{
+      r: number;
+      theta: number;
+      z: number;
+      speed: number;
+      phase: number;
+      isLeftVortex: boolean;
+      color: THREE.Color;
+    }> = [];
+
+    // Vortex center: left-shifted on desktop like Antigravity layout
+    const getVortexCenter = () => {
+      const isMobile = window.innerWidth < 768;
+      return {
+        x: isMobile ? 0 : -6.5,
+        y: isMobile ? 2.5 : 1.2,
+      };
+    };
+
+    let vortexCenter = getVortexCenter();
+
+    const goldenAngle = 2.39996323; // ~137.5 degrees in radians
+
+    for (let i = 0; i < particleCount; i++) {
+      // 65% in the main chromatic vortex, 35% in outer disperse drift
+      const isLeftVortex = i < particleCount * 0.7;
+
+      let r: number;
+      let theta: number;
+      let z: number;
+      let particleColor: THREE.Color;
+
+      if (isLeftVortex) {
+        // Spiral phyllotaxis disk radiating outwards
+        const progress = i / (particleCount * 0.7);
+        r = Math.pow(progress, 0.55) * 16.5 + 1.2;
+        theta = i * goldenAngle;
+        z = (Math.random() - 0.5) * 3.5;
+
+        // Chromatic palette based on spiral angle & radius
+        const normalizedAngle = (theta % (Math.PI * 2)) / (Math.PI * 2);
+        const paletteIdx = Math.floor(normalizedAngle * palette.length);
+        const nextIdx = (paletteIdx + 1) % palette.length;
+        const blend = (normalizedAngle * palette.length) % 1;
+
+        particleColor = palette[paletteIdx].clone().lerp(palette[nextIdx], blend);
+
+        // Mix in subtle random variation
+        if (Math.random() > 0.8) {
+          particleColor.lerp(new THREE.Color("#e91100"), 0.3);
+        }
+      } else {
+        // Disperse drift across the right side and outer space
+        const j = i - particleCount * 0.7;
+        const totalRight = particleCount * 0.3;
+        r = Math.sqrt(j / totalRight) * 26 + 6;
+        theta = j * goldenAngle * 1.5;
+        z = (Math.random() - 0.5) * 6;
+
+        // Mostly neutral slate with occasional colorful sparks
+        if (Math.random() > 0.35) {
+          particleColor = getNeutralColor(isDark());
+        } else {
+          const randColor = palette[Math.floor(Math.random() * palette.length)];
+          particleColor = randColor.clone();
+        }
+      }
+
+      basePositions.push({
+        r,
+        theta,
+        z,
+        speed: 0.12 + Math.random() * 0.18,
+        phase: Math.random() * Math.PI * 2,
+        isLeftVortex,
+        color: particleColor,
+      });
+
+      instancedMesh.setColorAt(i, particleColor);
     }
 
-    // 4. Mouse and Scroll Tracking with Smooth Damping
-    const mouse = { x: 0, y: 0, targetX: 0, targetY: 0 };
+    if (instancedMesh.instanceColor) {
+      instancedMesh.instanceColor.needsUpdate = true;
+    }
+
+    scene.add(instancedMesh);
+
+    // 4. Mouse / Anti-Gravity Force Field & Scroll State
+    const mouse3D = new THREE.Vector3(9999, 9999, 0);
+    const targetMouse3D = new THREE.Vector3(9999, 9999, 0);
     let scrollY = 0;
     let targetScrollY = 0;
     let isVisible = true;
 
+    // Raycaster to project mouse onto 3D plane z = 0
+    const raycaster = new THREE.Raycaster();
+    const mouseCoord = new THREE.Vector2(-9999, -9999);
+    const planeZ = new THREE.Plane(new THREE.Vector3(0, 0, 1), 0);
+
     const handleMouseMove = (e: MouseEvent) => {
-      if (!interactive) return;
-      // Normalized between -1 and 1
-      const nx = (e.clientX / window.innerWidth) * 2 - 1;
-      const ny = -(e.clientY / window.innerHeight) * 2 + 1;
-      mouse.targetX = nx * 0.6;
-      mouse.targetY = ny * 0.4;
+      if (!interactive || !container) return;
+      const rect = container.getBoundingClientRect();
+      const x = ((e.clientX - rect.left) / rect.width) * 2 - 1;
+      const y = -((e.clientY - rect.top) / rect.height) * 2 + 1;
+
+      mouseCoord.set(x, y);
+      raycaster.setFromCamera(mouseCoord, camera);
+      raycaster.ray.intersectPlane(planeZ, targetMouse3D);
+    };
+
+    const handleMouseLeave = () => {
+      targetMouse3D.set(9999, 9999, 0);
     };
 
     const handleScroll = () => {
@@ -203,9 +211,10 @@ export default function ThreeBackground({ interactive = true }: ThreeBackgroundP
     };
 
     window.addEventListener("mousemove", handleMouseMove, { passive: true });
+    window.addEventListener("mouseleave", handleMouseLeave);
     window.addEventListener("scroll", handleScroll, { passive: true });
 
-    // Pause rendering when canvas is not visible to optimize GPU/CPU
+    // Performance: Pause animation when off-screen
     const observer = new IntersectionObserver(
       ([entry]) => {
         isVisible = entry.isIntersecting;
@@ -214,38 +223,36 @@ export default function ThreeBackground({ interactive = true }: ThreeBackgroundP
     );
     observer.observe(container);
 
-    // Handle Window Resize
+    // Handle Resize
     const handleResize = () => {
       if (!container) return;
-      const newWidth = container.clientWidth || window.innerWidth;
-      const newHeight = container.clientHeight || 600;
-      camera.aspect = newWidth / newHeight;
+      width = container.clientWidth || window.innerWidth;
+      height = container.clientHeight || 700;
+      camera.aspect = width / height;
       camera.updateProjectionMatrix();
-      renderer.setSize(newWidth, newHeight);
+      renderer.setSize(width, height);
       renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+
+      vortexCenter = getVortexCenter();
     };
 
     window.addEventListener("resize", handleResize);
 
-    // Theme observer
+    // Theme Switch Observer
     const themeObserver = new MutationObserver(() => {
       const dark = isDark();
-      const color = dark ? 0xe91100 : 0xdc2626;
-      const secColor = dark ? 0xff4d36 : 0xef4444;
+      dashMaterial.opacity = dark ? 0.88 : 0.72;
 
-      coreMaterial.color.setHex(color);
-      coreMaterial.opacity = dark ? 0.35 : 0.16;
-
-      innerMaterial.color.setHex(secColor);
-      innerMaterial.opacity = dark ? 0.45 : 0.22;
-
-      ringMaterial.color.setHex(color);
-      ringMaterial.opacity = dark ? 0.35 : 0.14;
-
-      particlesMaterial.opacity = dark ? 0.75 : 0.45;
-      particlesMaterial.size = dark ? 0.38 : 0.28;
-      particlesMaterial.blending = dark ? THREE.AdditiveBlending : THREE.NormalBlending;
-      particlesMaterial.needsUpdate = true;
+      // Update neutral colors
+      for (let i = 0; i < particleCount; i++) {
+        const p = basePositions[i];
+        if (!p.isLeftVortex) {
+          instancedMesh.setColorAt(i, p.color);
+        }
+      }
+      if (instancedMesh.instanceColor) {
+        instancedMesh.instanceColor.needsUpdate = true;
+      }
     });
 
     themeObserver.observe(document.documentElement, {
@@ -253,7 +260,8 @@ export default function ThreeBackground({ interactive = true }: ThreeBackgroundP
       attributeFilter: ["class", "data-theme"],
     });
 
-    // 5. Animation Loop
+    // 5. Animation Loop: Fluid Vortex & Anti-Gravity Physics
+    const dummy = new THREE.Object3D();
     let animationFrameId: number;
     let clock = new THREE.Clock();
 
@@ -265,49 +273,84 @@ export default function ThreeBackground({ interactive = true }: ThreeBackgroundP
       const elapsedTime = clock.getElapsedTime();
 
       // Smooth mouse lerp
-      mouse.x += (mouse.targetX - mouse.x) * 0.05;
-      mouse.y += (mouse.targetY - mouse.y) * 0.05;
+      mouse3D.lerp(targetMouse3D, 0.08);
 
       // Smooth scroll lerp
-      scrollY += (targetScrollY - scrollY) * 0.05;
+      scrollY += (targetScrollY - scrollY) * 0.06;
+      const scrollOffset = scrollY * 0.003;
 
-      // Group rotation (continuous ambient rotation + mouse tilt)
-      mainGroup.rotation.y = elapsedTime * 0.12 + mouse.x * 0.8;
-      mainGroup.rotation.x = Math.sin(elapsedTime * 0.08) * 0.15 - mouse.y * 0.5;
-
-      // Core rotation (faster, multi-axis)
-      coreMesh.rotation.x = elapsedTime * 0.2;
-      coreMesh.rotation.y = elapsedTime * 0.25;
-
-      // Inner core counter-rotation
-      innerMesh.rotation.x = -elapsedTime * 0.35;
-      innerMesh.rotation.z = elapsedTime * 0.3;
-
-      // Rings precession
-      ringMesh.rotation.z = elapsedTime * 0.15;
-      ring2Mesh.rotation.z = -elapsedTime * 0.18;
-
-      // Scroll effect: subtle parallax zoom and camera pan
-      const scrollFactor = Math.min(scrollY / 1000, 1.5);
-      camera.position.y = -scrollFactor * 3.5;
-      camera.position.z = 24 - scrollFactor * 4;
-
-      // Subtle particle breathing wave
-      const positionAttr = particlesGeometry.attributes
-        .position as THREE.BufferAttribute;
-      const posArray = positionAttr.array as Float32Array;
-
-      for (let i = 0; i < particleCount; i += 3) {
-        const ox = originalPositions[i * 3];
-        const oy = originalPositions[i * 3 + 1];
-        const oz = originalPositions[i * 3 + 2];
-
-        const wave = Math.sin(elapsedTime * 0.8 + ox * 0.3) * 0.2;
-        posArray[i * 3] = ox + wave;
-        posArray[i * 3 + 1] = oy + wave;
-        posArray[i * 3 + 2] = oz + wave;
+      // Subtle parallax camera motion
+      if (mouse3D.x < 1000) {
+        camera.position.x += (mouse3D.x * 0.12 - camera.position.x) * 0.04;
+        camera.position.y += (mouse3D.y * 0.12 - camera.position.y) * 0.04;
+      } else {
+        camera.position.x += (0 - camera.position.x) * 0.04;
+        camera.position.y += (0 - camera.position.y) * 0.04;
       }
-      positionAttr.needsUpdate = true;
+      camera.lookAt(0, 0, 0);
+
+      // Update particle positions
+      for (let i = 0; i < particleCount; i++) {
+        const p = basePositions[i];
+
+        // 1. Base vortex orbit
+        const currentTheta =
+          p.theta +
+          elapsedTime * p.speed * 0.15 +
+          scrollOffset * 0.5 +
+          (p.isLeftVortex ? 0 : Math.sin(elapsedTime * 0.2 + p.phase) * 0.1);
+
+        // Breathing radius pulsation
+        const breathing = Math.sin(elapsedTime * 0.8 + p.phase) * 0.35;
+        const currentR = p.r + breathing;
+
+        // Position relative to vortex center
+        let x = vortexCenter.x + Math.cos(currentTheta) * currentR;
+        let y = vortexCenter.y + Math.sin(currentTheta) * currentR;
+        let z = p.z + Math.cos(elapsedTime * 0.5 + p.phase) * 0.4;
+
+        // Tangent streamline flow angle
+        // Dash points along the outward curved spiral
+        let angle = currentTheta + Math.PI / 2 + 0.18;
+
+        // 2. Interactive "Anti-Gravity" Force Field
+        if (mouse3D.x < 1000) {
+          const dx = x - mouse3D.x;
+          const dy = y - mouse3D.y;
+          const distSq = dx * dx + dy * dy;
+          const interactionRadius = 5.8;
+
+          if (distSq < interactionRadius * interactionRadius && distSq > 0.01) {
+            const dist = Math.sqrt(distSq);
+            const force = (1 - dist / interactionRadius) * 1.6;
+
+            // Repulsion push + swirl vortex around cursor
+            const pushAngle = Math.atan2(dy, dx);
+            const swirlAngle = pushAngle + Math.PI / 2;
+
+            x += Math.cos(pushAngle) * force * 1.1 + Math.cos(swirlAngle) * force * 0.7;
+            y += Math.sin(pushAngle) * force * 1.1 + Math.sin(swirlAngle) * force * 0.7;
+            z += force * 1.5;
+
+            // Align dash with the magnetic swirl flow
+            angle = swirlAngle + Math.sin(elapsedTime * 3 + dist) * 0.4;
+          }
+        }
+
+        // Apply scale: larger near the vibrant vortex center, tapering smoothly outwards
+        const scale = p.isLeftVortex
+          ? THREE.MathUtils.clamp(1.1 - p.r / 22, 0.45, 1.25)
+          : THREE.MathUtils.clamp(0.8 - p.r / 35, 0.35, 0.85);
+
+        dummy.position.set(x, y, z);
+        dummy.rotation.z = angle;
+        dummy.scale.set(scale, scale, 1);
+        dummy.updateMatrix();
+
+        instancedMesh.setMatrixAt(i, dummy.matrix);
+      }
+
+      instancedMesh.instanceMatrix.needsUpdate = true;
 
       renderer.render(scene, camera);
     };
@@ -318,24 +361,16 @@ export default function ThreeBackground({ interactive = true }: ThreeBackgroundP
     return () => {
       cancelAnimationFrame(animationFrameId);
       window.removeEventListener("mousemove", handleMouseMove);
+      window.removeEventListener("mouseleave", handleMouseLeave);
       window.removeEventListener("scroll", handleScroll);
       window.removeEventListener("resize", handleResize);
       observer.disconnect();
       themeObserver.disconnect();
 
-      // Dispose Three.js resources
-      coreGeometry.dispose();
-      coreMaterial.dispose();
-      innerGeometry.dispose();
-      innerMaterial.dispose();
-      ringGeometry.dispose();
-      ring2Geometry.dispose();
-      ringMaterial.dispose();
-      particlesGeometry.dispose();
-      particlesMaterial.dispose();
-      particleTexture.dispose();
-
+      dashGeometry.dispose();
+      dashMaterial.dispose();
       renderer.dispose();
+
       if (container && renderer.domElement) {
         container.removeChild(renderer.domElement);
       }
@@ -350,7 +385,7 @@ export default function ThreeBackground({ interactive = true }: ThreeBackgroundP
     <div
       ref={containerRef}
       aria-hidden="true"
-      className="absolute inset-0 pointer-events-none -z-10 overflow-hidden select-none transition-opacity duration-1000"
+      className="absolute inset-0 pointer-events-none -z-10 overflow-hidden select-none"
     />
   );
 }
