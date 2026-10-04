@@ -16,7 +16,7 @@ import { useLanguage } from "@/context/LanguageContext";
 export default function ProjectsSection() {
   const { lang } = useLanguage();
   const [selectedCategory, setSelectedCategory] = useState<string>("all");
-  const [searchQuery, setSearchQuery] = useState<string>("all");
+  const [searchQuery, setSearchQuery] = useState<string>("");
 
   const categories = [
     {
@@ -51,7 +51,7 @@ export default function ProjectsSection() {
       const matchCategory =
         selectedCategory === "all" || project.category === selectedCategory;
 
-      const q = searchQuery === "all" ? "" : searchQuery.toLowerCase().trim();
+      const q = searchQuery.toLowerCase().trim();
       if (!q) return matchCategory;
 
       const matchSearch =
@@ -110,8 +110,9 @@ export default function ProjectsSection() {
                 return (
                   <button
                     key={cat.id}
+                    type="button"
                     onClick={() => setSelectedCategory(cat.id)}
-                    className={`text-xs px-3.5 py-2 rounded-full font-medium transition-all flex items-center gap-1.5 cursor-pointer ${
+                    className={`text-xs px-3.5 py-2 rounded-full font-medium transition-all flex items-center gap-1.5 cursor-pointer touch-manipulation shrink-0 ${
                       isActive
                         ? "bg-primary text-primary-foreground shadow-xs font-semibold"
                         : "bg-card border border-border text-muted-foreground hover:text-foreground hover:bg-muted"
@@ -142,14 +143,15 @@ export default function ProjectsSection() {
                     ? "Search title, tech (Laravel, React, Ionic)..."
                     : "Cari judul, teknologi (Laravel, React, Ionic)..."
                 }
-                value={searchQuery === "all" ? "" : searchQuery}
+                value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
                 className="w-full h-10 pl-9 pr-8 text-xs rounded-full border border-border bg-card text-foreground placeholder:text-muted-foreground focus:outline-none focus:border-primary transition-colors"
               />
-              {searchQuery && searchQuery !== "all" && (
+              {searchQuery && (
                 <button
+                  type="button"
                   onClick={() => setSearchQuery("")}
-                  className="absolute right-2.5 top-1/2 -translate-y-1/2 p-1 rounded-full text-muted-foreground hover:text-foreground"
+                  className="absolute right-2.5 top-1/2 -translate-y-1/2 p-1 rounded-full text-muted-foreground hover:text-foreground cursor-pointer"
                 >
                   <X className="size-3.5" />
                 </button>
@@ -173,6 +175,7 @@ export default function ProjectsSection() {
                 : "Coba kata kunci lain atau ubah kategori filter."}
             </p>
             <button
+              type="button"
               onClick={() => {
                 setSelectedCategory("all");
                 setSearchQuery("");
@@ -184,10 +187,11 @@ export default function ProjectsSection() {
           </div>
         ) : (
           <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
-            {filteredProjects.map((project) => (
+            {filteredProjects.map((project, idx) => (
               <article
                 key={project.id}
-                className="group flex flex-col justify-between p-6 rounded-3xl border border-border bg-card hover:border-primary/50 hover:shadow-md transition-all duration-200 scroll-reveal"
+                className="group flex flex-col justify-between p-6 rounded-3xl border border-border bg-card hover:border-primary/50 hover:shadow-md transition-all duration-200 project-card-animate"
+                style={{ animationDelay: `${Math.min(idx * 30, 240)}ms` }}
               >
                 <div>
                   {/* Card Meta: Period & Institution */}

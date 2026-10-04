@@ -28,21 +28,43 @@ export default function ScrollManager() {
         entries.forEach((entry) => {
           if (entry.isIntersecting) {
             entry.target.classList.add("revealed");
+            observer.unobserve(entry.target);
           }
         });
       },
       {
-        threshold: 0.1,
-        rootMargin: "0px 0px -50px 0px",
+        threshold: 0.05,
+        rootMargin: "0px 0px -20px 0px",
       }
     );
 
-    const elementsToReveal = document.querySelectorAll(".scroll-reveal");
-    elementsToReveal.forEach((el) => observer.observe(el));
+    const observeElements = () => {
+      const elementsToReveal = document.querySelectorAll(".scroll-reveal:not(.revealed)");
+      elementsToReveal.forEach((el) => {
+        const rect = el.getBoundingClientRect();
+        if (rect.top < window.innerHeight && rect.bottom > 0) {
+          el.classList.add("revealed");
+        } else {
+          observer.observe(el);
+        }
+      });
+    };
+
+    observeElements();
+
+    const mutationObserver = new MutationObserver(() => {
+      observeElements();
+    });
+
+    mutationObserver.observe(document.body, {
+      childList: true,
+      subtree: true,
+    });
 
     return () => {
       window.removeEventListener("scroll", handleScroll);
       observer.disconnect();
+      mutationObserver.disconnect();
     };
   }, []);
 
